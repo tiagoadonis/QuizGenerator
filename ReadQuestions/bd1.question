@@ -1,0 +1,128 @@
+# Maths:
+maths.P1.easy("O resultado de 13 + 4 é...") {
+  "7":0;
+  "17":100;
+  "14":0;
+  "12":0;
+}
+
+maths.P2.easy("O resultado de 22 / 2 é...") {
+  "7.5":0;
+  "10":0;
+  "11":100;
+  "9":0;
+}
+
+maths.P3.medium("Qual é o valor de x na expressão: x = 2x + 20 - 6x") {
+  "4":100;
+  "5":0;
+  "-20/3":0;
+  "-9":0;
+}
+
+maths.P4.medium("O resultado de 4! / 2! é...") {
+  "2":0;
+  "6":0;
+  "12":100;
+  "4":0;
+}
+
+maths.P5.hard("Qual o resultado da derivada de: x² + 3x + 40") {
+  "x² + 3x 4":0;
+  "2x + 3":0;
+  "x² + 3":0;
+  "2x + 3":100;
+}
+
+maths.P6.hard("Qual o valor de x em: x² - x - 6 = 0") {
+  "x = 6; x = -2":0;
+  "x = 4; x = 2":0;
+  "x = 3; x = -2":100;
+  "x = -3; x = 2":0;
+}
+
+# Portugal's History
+history.P1.easy("Quem foi o primeiro rei de Portugal?"){
+  "D. João I":0;
+  "D. Sancho I":0;
+  "D. Afonso Henriques":100;
+  "D. Afonso I":0;
+}
+
+history.P2.easy("Quantas dinastias houve no reinado Português?"){
+  "3":0;
+  "4":100;
+  "5":0;
+  "6":0;
+}
+
+history.P3.medium("Quantas rainhas governaram como monarcas?"){
+  "1":0;
+  "2":100;
+  "3":0;
+  "4":0;
+}
+
+history.P4.medium("Quantos reis espanhóis governaram Portugal?"){
+  "2":0;
+  "3":100;
+  "4":0;
+  "1":0;
+}
+
+history.P5.hard("Quem mandou plantar o Pinhal de Leiria?"){
+  "D. Sancho I":0;
+  "D. Sancho II":0;
+  "D. Dinis I":0;
+  "D. Afonso III":100;
+}
+
+history.P6.hard("Qual o cognome do rei D. Fernando I?"){
+  "O Conquistador":0;
+  "O Venturoso":0;
+  "O Africano":0;
+  "O Formoso":100;
+}
+
+# Languages:
+languages.P1.easy("Qual destas línguas deriva diretamente do latim?"){
+  "Grego":0;
+  "Italiano":100;
+  "Inglês":0;
+  "Russo":0;
+}
+
+languages.P2.easy("Como se diz 'Bom dia' em espanhol?"){
+  "God morgon":0;
+  "Buongiorno":0;
+  "Good morning":0;
+  "Buenos dias":100;
+}
+
+languages.P3.medium("Que língua se fala no Nepal?"){
+  "Nepali":100;
+  "Indiano":0;
+  "Coreano":0;
+  "Chinês":0;
+}
+
+languages.P4.medium("Quantas línguas se falam na Suiça?"){
+  "3":0;
+  "2":0;
+  "4":100;
+  "5":0;
+}
+
+languages.P5.hard("Como se diz 'cão' em alemão?"){
+  "Katze":0;
+  "Hund":100;
+  "Ente":0;
+  "Schlampe":0;
+}
+
+languages.P6.hard("Como se diz 'olá' em dinamarquês?"){
+  "bord":0;
+  "farvel":0;
+  "stol":0;
+  "hej":100;
+}
