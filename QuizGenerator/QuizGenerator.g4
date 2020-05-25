@@ -18,7 +18,14 @@ other: 'else' ':' main+
 
 instructions: assignment				#assignInst
 			| command					#commandInst
+			| createQuestion			#questInst
 			;
+
+createQuestion: 'Question' ID '.text' '=' WORD
+			  | ID '.theme' '=' WORD
+			  | ID '.difficulty' '=' difficulty
+			  | ID '.answer(' WORD ',' NUM ')'
+			  ;
 
 assignment: declaration 		 		#declarAssign
 		  | attribution 				#attribAssign
@@ -37,7 +44,7 @@ attribution: type? ID '=' expr 								#attribVar
 
 expr: NUM   							#numExpr
 	| WORD								#wordExpr
-	| mathExpr							#mathExpr
+	| mathExpr							#math
 	;
 
 type: 'String' 													
@@ -55,17 +62,17 @@ questionAttribution: 'Question' ID '=' ID '.get(' NUM ',' difficulty ',' (ID|WOR
 				   | 'Question' '[]' ID '=' ID '.get(' NUM ',' difficulty ',' (ID|WORD) ')'		#questAttribArray
 				   ;
 
-command: 'answersMode(' testType ')'			#answerModeCommand
+command: 'answersMode' '=' testType 			#answerModeCommand
 	   | ID '.add(' ID ')'						#addCommand
 	   | 'rand' randMethod						#randCommand
 	   | ID '.numAnswers(' NUM ')'				#numAnswersCommand
-	   | 'print(' (ID | WORD) ')'				#printCommand
+	   | 'print' (ID | WORD) 					#printCommand
 	   | ID '=' mathExpr						#mathExprCommand
 	   ;
 
 mathExpr: mathExpr op=('*' | '/') mathExpr		#multDivExpr
 		| mathExpr op=('+' | '-') mathExpr		#addSubExpr
-		| NUM 									#numExpr
+		| NUM 									#numMathExpr
 		| '(' mathExpr ')'						#parenthExpr
 		| ID									#idExpr
 		;

@@ -1,10 +1,23 @@
+// Cria um teste com 3 perguntas do tema animais, 3 perguntas de história, 3 perguntas de matemática e 1 sobre línguas
+// O teste é do tipo escolha múltipla e tem 4 opções de resposta
+
 Begin create quest1												// cria o questionário chamado 'quest1'			 
 	Question[] questions;
 	String choice;												
 	int score = 0;
 	String[] themes = ["Animals", "History", "Maths"];
 
-	answersMode(multipleChoice);								// Define o quiz com respostas de escolha múltipla
+	Question newQuest.text = "Quantas patas tem um gato?";
+	newQuest.theme = "Animals";									// facultativo pode ser null por default
+	newQuest.difficulty = easy;									// facultativo pode ser null por default
+	newQuest.answer("4 patas", 100);
+	newQuest.answer("2 patas", 0);
+	newQuest.answer("3 patas", 0);
+	newQuest.answer("1 patas", 0);
+
+	questions.add(newQuest);
+
+	answersMode = multipleChoice;								// Define o quiz com respostas de escolha múltipla
 
 	DB data = load("bd1.question");								// carrega base de dados com o ficheiro das perguntas
 
@@ -21,7 +34,7 @@ Begin create quest1												// cria o questionário chamado 'quest1'
 	for question in questions:
 		question.numAnswers(4);
 		rand question.answers();								// coloca a ordem das respostas de forma aleatória
-		print(question);										// faz print da pergunta 'question'
+		print question;										// faz print da pergunta 'question'
 		choice = userAnswer;									// choice é a resposta do utilizador
 		
 																// se o utilizador acertar na resposta							
@@ -31,4 +44,5 @@ Begin create quest1												// cria o questionário chamado 'quest1'
 			score = score - (score * 0.1);						// retira 10% á pontuação
 		endif													// acaba o if
 	endfor														// acaba o for
+	print score;												// imprime o score
 endcreate														// acaba criação do questionário 'quest1'

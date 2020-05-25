@@ -3,7 +3,7 @@ grammar ReadQuestions;
 program: question+ EOF
 	   ; 
 
-question: ID '.' ID '.' Dificulty '(' String ')' '{' answer+ '}' 
+question: QID '(' String ')' '{' answer+ '}' 
 		;
 
 answer: String ':' Number ';' 
@@ -14,6 +14,7 @@ Dificulty:  'easy'
          | 'hard'
 		 ;
 
+QID: ID '.' ID '.' Dificulty;
 Number: [0-9]+;
 ID: [a-zA-Z0-9]+;
 String : '"' .*? '"' ;
