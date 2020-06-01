@@ -24,7 +24,7 @@ instructions: assignment				#assignInst
 createQuestion: 'Question' ID '.text' '=' WORD
 			  | ID '.theme' '=' WORD
 			  | ID '.difficulty' '=' difficulty
-			  | ID '.answer(' WORD ',' NUM ')'
+			  | ID '.answer' '(' WORD ',' NUM ')'
 			  ;
 
 assignment: declaration 		 		#declarAssign
@@ -51,21 +51,21 @@ type: 'String'
 	| 'int'												
 	;
 
-bdAttribution: 'DB' ID '=' 'load(' WORD ')' 	#bdAttrib
+bdAttribution: 'DB' ID '=' 'load' '(' WORD ')' 	#bdAttrib
 			 ;
 
 questionDeclaration: 'Question' ID 			#questDeclarVar
 				   | 'Question' '[]' ID		#questDeclarArray
 				   ;
 
-questionAttribution: 'Question' ID '=' ID '.get(' NUM ',' difficulty ',' (ID|WORD) ')'			#questAttribVar
-				   | 'Question' '[]' ID '=' ID '.get(' NUM ',' difficulty ',' (ID|WORD) ')'		#questAttribArray
+questionAttribution: 'Question' ID '=' ID '.get' '(' NUM ',' difficulty ',' (ID|WORD) ')'			#questAttribVar
+				   | 'Question' '[]' ID '=' ID '.get' '(' NUM ',' difficulty ',' (ID|WORD) ')'		#questAttribArray
 				   ;
 
 command: 'answersMode' '=' testType 			#answerModeCommand
-	   | ID '.add(' ID ')'						#addCommand
+	   | ID '.add' '(' ID ')'					#addCommand
 	   | 'rand' randMethod						#randCommand
-	   | ID '.numAnswers(' NUM ')'				#numAnswersCommand
+	   | ID '.numAnswers' '(' NUM ')'			#numAnswersCommand
 	   | 'print' (ID | WORD) 					#printCommand
 	   | ID '=' mathExpr						#mathExprCommand
 	   ;
@@ -91,7 +91,7 @@ difficulty: 'easy'								#easyDifficulty
 		  ;
 
 NUM: [0-9]+ ('.'[0-9]*)?;
-ID: [a-zA-z] [a-zA-Z0-9_]*;
+ID: [a-zA-Z] [a-zA-Z0-9_]*;
 WORD: ('"' (~'"')* '"');
 WS: [ \t\r\n]+ -> skip;
 COMMENT: '//' .*? '\n'-> skip;
