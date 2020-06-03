@@ -9,12 +9,12 @@ question: QID '(' String ')' '{' answer+ '}'
 answer: String ':' Number ';' 
       ;
 
-Dificulty:  'easy'
+Dificulty: 'easy'
          | 'medium'
          | 'hard'
 		 ;
 
-QID: ID '.' ID '.' Dificulty;
+QID: ID '.' ID '.' Dificulty; 		
 Number: [0-9]+;
 ID: [a-zA-Z0-9]+;
 String : '"' .*? '"' ;
