@@ -21,10 +21,10 @@ instructions: assignment				#assignInst
 			| createQuestion			#questInst
 			;
 
-createQuestion: 'Question' ID '.text' '=' WORD
-			  | ID '.theme' '=' WORD
-			  | ID '.difficulty' '=' difficulty
-			  | ID '.answer' '(' WORD ',' NUM ')'
+createQuestion: 'Question' ID '.text' '=' WORD #createQuestionphrase
+			  | ID '.theme' '=' WORD			#createQuestionTheme
+			  | ID '.difficulty' '=' difficulty	#createQuestionDifficulty
+			  | ID '.answer' '(' WORD ',' NUM ')' #createQuestionAnswer
 			  ;
 
 assignment: declaration 		 		#declarAssign
@@ -42,17 +42,18 @@ attribution: type? ID '=' expr 								#attribVar
 		   | type? '[]' ID '=' '[' (expr ',')* expr ']'		#attribArray
 		   ;	
 
-expr: NUM   							#numExpr
-	| WORD								#wordExpr
+
+
+expr:  WORD								#wordExpr
 	| mathExpr							#math
 	;
 
-type: 'String' 													
-	| 'int'												
+type: 'String' 		 #typeString											
+	| 'int'			#typeInt						
+	|	'double'  #typeDouble
 	;
-
 bdAttribution: 'DB' ID '=' 'load' '(' WORD ')' 	#bdAttrib
-			 ;
+			;
 
 questionDeclaration: 'Question' ID 			#questDeclarVar
 				   | 'Question' '[]' ID		#questDeclarArray
