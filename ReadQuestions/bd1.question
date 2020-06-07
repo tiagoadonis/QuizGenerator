@@ -126,3 +126,132 @@ languages.P6.hard("Como se diz 'olá' em dinamarquês?"){
   "stol":0;
   "hej":100;
 }
+
+# Soccer:
+soccer.P1.easy("Qual o acrónimo mais conhecido de Cristiano Ronaldo?"){
+  "CR17" : 0;
+  "CR28" : 0;
+  "CR7" : 100;
+  "R9" : 0;
+}
+
+soccer.P2.easy("Qual a última equipa portuguesa a ganhar uma competição europeia?"){
+  "Sporting" : 0;
+  "Porto" : 100;
+  "Benfica" : 0;
+  "Braga" : 0;
+}
+
+soccer.P3.medium("Quantos clubes treinou José Mourinho?"){
+  "5" : 0;
+  "8" : 100;
+  "7" : 0;
+  "6" : 0;
+}
+
+soccer.P4.medium("Qual o clube com mais títulos em Inglaterra?"){
+  "Manchester United" : 100;
+  "Chelsea" : 0;
+  "Liverpool" : 0;
+  "Arsenal" : 0;
+}
+
+soccer.P5.hard("Em que época foi jogada a primeira liga dos campeões no formato atual?"){
+  "89/90" : 0;
+  "90/91" : 0;
+  "91/92" : 0;
+  "92/93" : 100;
+}
+
+soccer.P6.hard("Em que estádio se jogou a final da liga dos campeões em 2009/2010?"){
+  "Wembley Stadium" : 0;
+  "Santiago Bernabéu" : 100;
+  "Giuseppe Meazza" : 0;
+  "Allianz Arena" : 0;
+}
+
+# Geography
+geography.P1.easy("Em que distrito está o concelho de Tondela?"){
+  "Guarda" : 0;
+  "Porto" : 0;
+  "Lisboa" : 0;
+  "Viseu" : 100;
+}
+
+geography.P2.easy("Qual a capital da Turquia?"){
+  "Istambul" : 100;
+  "Ancara" : 0;
+  "Adana" : 0;
+  "Antália" : 0;
+}
+
+geography.P3.medium("Quantos países tem o continente Europeu?"){
+  "30" : 0;
+  "28" : 0;
+  "50" : 100;
+  "51" : 0;
+}
+
+geography.P4.medium("Quantos países estão na península balcã?"){
+  "10" : 0;
+  "12" : 100;
+  "11" : 0;
+  "9" : 0;
+}
+
+geography.P5.hard("Em que país fica a Monte Tahat?"){
+  "Marrocos" : 0;
+  "Índia" : 0;
+  "Tailândia" : 0;
+  "Argélia" : 100;
+}
+
+geography.P6.hard("Qual destes países é atravessado pela linha do Equador?"){
+  "Somália" : 0;
+  "Zimbabwé" : 0;
+  "Venezuela" : 0;
+  "Madagáscar" : 100;
+}
+
+# Animals:
+animals.P1.easy("A que classe de animals pertence o golfinho?"){
+  "répteis" : 0;
+  "mamíferos" : 100;
+  "aves" : 0;
+  "peixes" : 0;
+}
+
+animals.P2.easy("Em que classe de animals está o porco?"){
+  "Herbívoro" : 0;
+  "Carnívoro" : 0;
+  "Nenhum" : 0;
+  "Omnívoro" : 100;
+}
+
+animals.P3.medium("Qual destes tubarões vive nos recifes de coral?"){
+  "Tubarão de Pontas Negras" : 100;
+  "Tubarão Baleia " : 0;
+  "Tubarão Branco" : 0;
+  "Tubarão Anjo" : 0;
+}
+
+animals.P4.medium("Qual destas espécies está extinta?"){
+  "Lince Ibérico" : 0;
+  "Condor da Califórnia" : 0;
+  "Peixe Espátula" : 100;
+  "Urechis unicinctus" : 0;
+}
+
+animals.P5.hard("Quais os animals dos quais descende o ocapi?"){
+  "Leão e Tigre" : 0;
+  "Girafa e Zebra" : 0;
+  "Coelho e Lebre" : 100;
+  "Pavão e Galinha" : 0;
+}
+
+animals.P6.hard("Qual o mamífero mais pequeno do mundo?"){
+  "Esquilo da Sibéria" : 0;
+  "Morcego de Nariz de Porco" : 0;
+  "Rato Comum" : 0;
+  "Musaranho Anão" : 100;
+}

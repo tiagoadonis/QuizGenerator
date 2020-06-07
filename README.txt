@@ -1,3 +1,3 @@
 O nosso projeto contém duas gramáticas. 
-A gramática principal encontra-se disponível na pasta "QuizGenerator", cuja gramática tem o mesmo nome que a pasta e o código fonte usada para a mesma chama-se "SourceCode.txt", disponível também na mesma pasta.
+A gramática principal encontra-se disponível na pasta "QuizGenerator", cuja gramática tem o mesmo nome que a pasta e o código fonte usada para a mesma chama-se "SourceCode.QG", disponível também na mesma pasta.
 A gramática secundária encontra-se na pasta "ReadQuestions", com o mesmo nome da pasta em questão. Os códigos fonte para esta gramática encontram-se também nesta pasta e têm os seguintes nomes "bd1.question" e "bd1.question".
