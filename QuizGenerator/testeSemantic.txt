@@ -3,8 +3,7 @@ Begin create quest1
 	
 String[] themes = ["Animals", "1+2", "Maths"];
 DB data = load("bd1.question");
-
-Question[] quest = themes.data(3, medium, theme);
+Question x = data.get(easy,"theme");
 
 
 endcreate
