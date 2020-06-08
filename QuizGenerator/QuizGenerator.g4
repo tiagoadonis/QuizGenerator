@@ -2,9 +2,9 @@ grammar QuizGenerator;
 
 program: 'Begin' 'create' ID stat* 'endcreate' EOF;
 
-stat: instructions ';'					#instMain
-	| forBlock							#forMain
-	| ifBlock							#ifMain
+stat: instructions ';'					#instStat
+	| forBlock							#forStat
+	| ifBlock							#ifStat
 	;
 
 forBlock: 'for' ID 'in' ID ':' stat+ 'endfor'
