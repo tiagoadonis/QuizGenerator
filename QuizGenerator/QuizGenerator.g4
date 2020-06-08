@@ -1,19 +1,19 @@
 grammar QuizGenerator;
 
-program: 'Begin' 'create' ID main* 'endcreate' EOF;
+program: 'Begin' 'create' ID stat* 'endcreate' EOF;
 
-main: instructions ';'					#instMain
+stat: instructions ';'					#instMain
 	| forBlock							#forMain
 	| ifBlock							#ifMain
 	;
 
-forBlock: 'for' ID 'in' ID ':' main+ 'endfor'
+forBlock: 'for' ID 'in' ID ':' stat+ 'endfor'
 		;
 
-ifBlock: 'if' '(' ID '==' ID'.correctAnswer()' ')' ':' main+ other? 'endif' //abre brevemente 
+ifBlock: 'if' '(' ID '==' ID'.correctAnswer()' ')' ':' stat+ other? 'endif' 		//abre brevemente 
 	   ; 
 
-other: 'else' ':' main+
+other: 'else' ':' stat+
 	 ;
 
 instructions: assignment				#assignInst
@@ -21,10 +21,10 @@ instructions: assignment				#assignInst
 			| createQuestion			#questInst
 			;
 
-createQuestion: 'Question' ID '.text' '=' WORD #createQuestionphrase
-			  | ID '.theme' '=' WORD			#createQuestionTheme
-			  | ID '.difficulty' '=' difficulty	#createQuestionDifficulty
-			  | ID '.answer' '(' WORD ',' NUM ')' #createQuestionAnswer
+createQuestion: 'Question' ID '.text' '=' WORD 		#createQuestionphrase
+			  | ID '.theme' '=' WORD				#createQuestionTheme
+			  | ID '.difficulty' '=' difficulty		#createQuestionDifficulty
+			  | ID '.answer' '(' WORD ',' NUM ')' 	#createQuestionAnswer
 			  ;
 
 assignment: declaration 		 		#declarAssign
@@ -42,16 +42,15 @@ attribution: type? ID '=' expr 								#attribVar
 		   | type? '[]' ID '=' '[' (expr ',')* expr ']'		#attribArray
 		   ;	
 
-
-
-expr:  WORD								#wordExpr
+expr: WORD								#wordExpr
 	| mathExpr							#math
 	;
 
-type: 'String' 		 #typeString											
+type: 'String' 		#typeString											
 	| 'int'			#typeInt						
-	|	'double'  #typeDouble
+	| 'double'      #typeDouble
 	;
+	
 bdAttribution: 'DB' ID '=' 'load' '(' WORD ')' 	#bdAttrib
 			;
 
