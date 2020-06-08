@@ -25,6 +25,7 @@ createQuestion: 'Question' ID '.text' '=' WORD 		#createQuestionphrase
 			  | ID '.theme' '=' WORD				#createQuestionTheme
 			  | ID '.difficulty' '=' difficulty		#createQuestionDifficulty
 			  | ID '.answer' '(' WORD ',' NUM ')' 	#createQuestionAnswer
+			  | ID '.name' '=' WORD 				#createQuestionName
 			  ;
 
 assignment: declaration 		 		#declarAssign
@@ -42,8 +43,8 @@ attribution: type? ID '=' expr 								#attribVar
 		   | type? '[]' ID '=' '[' (expr ',')* expr ']'		#attribArray
 		   ;	
 
-expr: WORD								#wordExpr
-	| mathExpr							#math
+expr: WORD				#wordExpr
+	| mathExpr			#math
 	;
 
 type: 'String' 		#typeString											
@@ -54,12 +55,15 @@ type: 'String' 		#typeString
 bdAttribution: 'DB' ID '=' 'load' '(' WORD ')' 	#bdAttrib
 			;
 
-questionDeclaration: 'Question' ID 			#questDeclarVar
-				   | 'Question' '[]' ID		#questDeclarArray
+questionType: 'Question' 
+			;
+
+questionDeclaration: questionType ID 			#questDeclarVar
+				   | questionType '[]' ID		#questDeclarArray
 				   ;
 
-questionAttribution: 'Question' ID '=' ID '.get' '(' NUM ',' difficulty ',' (ID|WORD) ')'			#questAttribVar
-				   | 'Question' '[]' ID '=' ID '.get' '(' NUM ',' difficulty ',' (ID|WORD) ')'		#questAttribArray
+questionAttribution: questionType? ID '=' ID '.get' '(' difficulty ',' (ID|WORD) ')'					#questAttribVar
+				   | questionType? '[]' ID '=' ID '.get' '(' NUM ',' difficulty ',' (ID|WORD) ')'		#questAttribArray
 				   ;
 
 command: 'answersMode' '=' testType 			#answerModeCommand
