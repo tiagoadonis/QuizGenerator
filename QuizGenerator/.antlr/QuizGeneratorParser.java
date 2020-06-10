@@ -24,17 +24,17 @@ public class QuizGeneratorParser extends Parser {
 		T__38=39, T__39=40, T__40=41, T__41=42, T__42=43, T__43=44, T__44=45, 
 		T__45=46, T__46=47, NUM=48, ID=49, WORD=50, WS=51, COMMENT=52;
 	public static final int
-		RULE_program = 0, RULE_stat = 1, RULE_forBlock = 2, RULE_ifBlock = 3, 
-		RULE_other = 4, RULE_instructions = 5, RULE_createQuestion = 6, RULE_assignment = 7, 
-		RULE_declaration = 8, RULE_attribution = 9, RULE_expr = 10, RULE_type = 11, 
-		RULE_bdAttribution = 12, RULE_questionType = 13, RULE_questionDeclaration = 14, 
-		RULE_questionAttribution = 15, RULE_command = 16, RULE_mathExpr = 17, 
-		RULE_randMethod = 18, RULE_testType = 19, RULE_difficulty = 20;
+		RULE_program = 0, RULE_stat = 1, RULE_forBlock = 2, RULE_endf = 3, RULE_ifBlock = 4, 
+		RULE_other = 5, RULE_instructions = 6, RULE_createQuestion = 7, RULE_assignment = 8, 
+		RULE_declaration = 9, RULE_attribution = 10, RULE_expr = 11, RULE_type = 12, 
+		RULE_bdAttribution = 13, RULE_questionType = 14, RULE_questionDeclaration = 15, 
+		RULE_questionAttribution = 16, RULE_command = 17, RULE_mathExpr = 18, 
+		RULE_randMethod = 19, RULE_testType = 20, RULE_difficulty = 21;
 	public static final String[] ruleNames = {
-		"program", "stat", "forBlock", "ifBlock", "other", "instructions", "createQuestion", 
-		"assignment", "declaration", "attribution", "expr", "type", "bdAttribution", 
-		"questionType", "questionDeclaration", "questionAttribution", "command", 
-		"mathExpr", "randMethod", "testType", "difficulty"
+		"program", "stat", "forBlock", "endf", "ifBlock", "other", "instructions", 
+		"createQuestion", "assignment", "declaration", "attribution", "expr", 
+		"type", "bdAttribution", "questionType", "questionDeclaration", "questionAttribution", 
+		"command", "mathExpr", "randMethod", "testType", "difficulty"
 	};
 
 	private static final String[] _LITERAL_NAMES = {
@@ -124,29 +124,29 @@ public class QuizGeneratorParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(42);
-			match(T__0);
-			setState(43);
-			match(T__1);
 			setState(44);
+			match(T__0);
+			setState(45);
+			match(T__1);
+			setState(46);
 			match(ID);
-			setState(48);
+			setState(50);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__4) | (1L << T__8) | (1L << T__15) | (1L << T__23) | (1L << T__26) | (1L << T__27) | (1L << T__28) | (1L << T__29) | (1L << T__32) | (1L << T__34) | (1L << T__36) | (1L << ID))) != 0)) {
 				{
 				{
-				setState(45);
+				setState(47);
 				stat();
 				}
 				}
-				setState(50);
+				setState(52);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(51);
+			setState(53);
 			match(T__2);
-			setState(52);
+			setState(54);
 			match(EOF);
 			}
 		}
@@ -172,30 +172,30 @@ public class QuizGeneratorParser extends Parser {
 			super.copyFrom(ctx);
 		}
 	}
-	public static class InstMainContext extends StatContext {
-		public InstructionsContext instructions() {
-			return getRuleContext(InstructionsContext.class,0);
-		}
-		public InstMainContext(StatContext ctx) { copyFrom(ctx); }
-	}
-	public static class ForMainContext extends StatContext {
-		public ForBlockContext forBlock() {
-			return getRuleContext(ForBlockContext.class,0);
-		}
-		public ForMainContext(StatContext ctx) { copyFrom(ctx); }
-	}
-	public static class IfMainContext extends StatContext {
+	public static class IfStatContext extends StatContext {
 		public IfBlockContext ifBlock() {
 			return getRuleContext(IfBlockContext.class,0);
 		}
-		public IfMainContext(StatContext ctx) { copyFrom(ctx); }
+		public IfStatContext(StatContext ctx) { copyFrom(ctx); }
+	}
+	public static class InstStatContext extends StatContext {
+		public InstructionsContext instructions() {
+			return getRuleContext(InstructionsContext.class,0);
+		}
+		public InstStatContext(StatContext ctx) { copyFrom(ctx); }
+	}
+	public static class ForStatContext extends StatContext {
+		public ForBlockContext forBlock() {
+			return getRuleContext(ForBlockContext.class,0);
+		}
+		public ForStatContext(StatContext ctx) { copyFrom(ctx); }
 	}
 
 	public final StatContext stat() throws RecognitionException {
 		StatContext _localctx = new StatContext(_ctx, getState());
 		enterRule(_localctx, 2, RULE_stat);
 		try {
-			setState(59);
+			setState(61);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case T__15:
@@ -208,28 +208,28 @@ public class QuizGeneratorParser extends Parser {
 			case T__34:
 			case T__36:
 			case ID:
-				_localctx = new InstMainContext(_localctx);
+				_localctx = new InstStatContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(54);
+				setState(56);
 				instructions();
-				setState(55);
+				setState(57);
 				match(T__3);
 				}
 				break;
 			case T__4:
-				_localctx = new ForMainContext(_localctx);
+				_localctx = new ForStatContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(57);
+				setState(59);
 				forBlock();
 				}
 				break;
 			case T__8:
-				_localctx = new IfMainContext(_localctx);
+				_localctx = new IfStatContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(58);
+				setState(60);
 				ifBlock();
 				}
 				break;
@@ -253,6 +253,9 @@ public class QuizGeneratorParser extends Parser {
 		public TerminalNode ID(int i) {
 			return getToken(QuizGeneratorParser.ID, i);
 		}
+		public EndfContext endf() {
+			return getRuleContext(EndfContext.class,0);
+		}
 		public List<StatContext> stat() {
 			return getRuleContexts(StatContext.class);
 		}
@@ -272,31 +275,59 @@ public class QuizGeneratorParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(61);
-			match(T__4);
-			setState(62);
-			match(ID);
 			setState(63);
-			match(T__5);
+			match(T__4);
 			setState(64);
 			match(ID);
 			setState(65);
+			match(T__5);
+			setState(66);
+			match(ID);
+			setState(67);
 			match(T__6);
-			setState(67); 
+			setState(69); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(66);
+				setState(68);
 				stat();
 				}
 				}
-				setState(69); 
+				setState(71); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__4) | (1L << T__8) | (1L << T__15) | (1L << T__23) | (1L << T__26) | (1L << T__27) | (1L << T__28) | (1L << T__29) | (1L << T__32) | (1L << T__34) | (1L << T__36) | (1L << ID))) != 0) );
-			setState(71);
+			setState(73);
+			endf();
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class EndfContext extends ParserRuleContext {
+		public EndfContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_endf; }
+	}
+
+	public final EndfContext endf() throws RecognitionException {
+		EndfContext _localctx = new EndfContext(_ctx, getState());
+		enterRule(_localctx, 6, RULE_endf);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(75);
 			match(T__7);
 			}
 		}
@@ -333,52 +364,52 @@ public class QuizGeneratorParser extends Parser {
 
 	public final IfBlockContext ifBlock() throws RecognitionException {
 		IfBlockContext _localctx = new IfBlockContext(_ctx, getState());
-		enterRule(_localctx, 6, RULE_ifBlock);
+		enterRule(_localctx, 8, RULE_ifBlock);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(73);
-			match(T__8);
-			setState(74);
-			match(T__9);
-			setState(75);
-			match(ID);
-			setState(76);
-			match(T__10);
 			setState(77);
-			match(ID);
+			match(T__8);
 			setState(78);
-			match(T__11);
+			match(T__9);
 			setState(79);
-			match(T__12);
+			match(ID);
 			setState(80);
+			match(T__10);
+			setState(81);
+			match(ID);
+			setState(82);
+			match(T__11);
+			setState(83);
+			match(T__12);
+			setState(84);
 			match(T__6);
-			setState(82); 
+			setState(86); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(81);
+				setState(85);
 				stat();
 				}
 				}
-				setState(84); 
+				setState(88); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__4) | (1L << T__8) | (1L << T__15) | (1L << T__23) | (1L << T__26) | (1L << T__27) | (1L << T__28) | (1L << T__29) | (1L << T__32) | (1L << T__34) | (1L << T__36) | (1L << ID))) != 0) );
-			setState(87);
+			setState(91);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==T__14) {
 				{
-				setState(86);
+				setState(90);
 				other();
 				}
 			}
 
-			setState(89);
+			setState(93);
 			match(T__13);
 			}
 		}
@@ -408,26 +439,26 @@ public class QuizGeneratorParser extends Parser {
 
 	public final OtherContext other() throws RecognitionException {
 		OtherContext _localctx = new OtherContext(_ctx, getState());
-		enterRule(_localctx, 8, RULE_other);
+		enterRule(_localctx, 10, RULE_other);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(91);
+			setState(95);
 			match(T__14);
-			setState(92);
+			setState(96);
 			match(T__6);
-			setState(94); 
+			setState(98); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(93);
+				setState(97);
 				stat();
 				}
 				}
-				setState(96); 
+				setState(100); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__4) | (1L << T__8) | (1L << T__15) | (1L << T__23) | (1L << T__26) | (1L << T__27) | (1L << T__28) | (1L << T__29) | (1L << T__32) | (1L << T__34) | (1L << T__36) | (1L << ID))) != 0) );
@@ -476,16 +507,16 @@ public class QuizGeneratorParser extends Parser {
 
 	public final InstructionsContext instructions() throws RecognitionException {
 		InstructionsContext _localctx = new InstructionsContext(_ctx, getState());
-		enterRule(_localctx, 10, RULE_instructions);
+		enterRule(_localctx, 12, RULE_instructions);
 		try {
-			setState(101);
+			setState(105);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,6,_ctx) ) {
 			case 1:
 				_localctx = new AssignInstContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(98);
+				setState(102);
 				assignment();
 				}
 				break;
@@ -493,7 +524,7 @@ public class QuizGeneratorParser extends Parser {
 				_localctx = new CommandInstContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(99);
+				setState(103);
 				command();
 				}
 				break;
@@ -501,7 +532,7 @@ public class QuizGeneratorParser extends Parser {
 				_localctx = new QuestInstContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(100);
+				setState(104);
 				createQuestion();
 				}
 				break;
@@ -560,24 +591,24 @@ public class QuizGeneratorParser extends Parser {
 
 	public final CreateQuestionContext createQuestion() throws RecognitionException {
 		CreateQuestionContext _localctx = new CreateQuestionContext(_ctx, getState());
-		enterRule(_localctx, 12, RULE_createQuestion);
+		enterRule(_localctx, 14, RULE_createQuestion);
 		try {
-			setState(127);
+			setState(131);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,7,_ctx) ) {
 			case 1:
 				_localctx = new CreateQuestionphraseContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(103);
-				match(T__15);
-				setState(104);
-				match(ID);
-				setState(105);
-				match(T__16);
-				setState(106);
-				match(T__17);
 				setState(107);
+				match(T__15);
+				setState(108);
+				match(ID);
+				setState(109);
+				match(T__16);
+				setState(110);
+				match(T__17);
+				setState(111);
 				match(WORD);
 				}
 				break;
@@ -585,13 +616,13 @@ public class QuizGeneratorParser extends Parser {
 				_localctx = new CreateQuestionThemeContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(108);
+				setState(112);
 				match(ID);
-				setState(109);
+				setState(113);
 				match(T__18);
-				setState(110);
+				setState(114);
 				match(T__17);
-				setState(111);
+				setState(115);
 				match(WORD);
 				}
 				break;
@@ -599,13 +630,13 @@ public class QuizGeneratorParser extends Parser {
 				_localctx = new CreateQuestionDifficultyContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(112);
+				setState(116);
 				match(ID);
-				setState(113);
+				setState(117);
 				match(T__19);
-				setState(114);
+				setState(118);
 				match(T__17);
-				setState(115);
+				setState(119);
 				difficulty();
 				}
 				break;
@@ -613,19 +644,19 @@ public class QuizGeneratorParser extends Parser {
 				_localctx = new CreateQuestionAnswerContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(116);
-				match(ID);
-				setState(117);
-				match(T__20);
-				setState(118);
-				match(T__9);
-				setState(119);
-				match(WORD);
 				setState(120);
-				match(T__21);
+				match(ID);
 				setState(121);
-				match(NUM);
+				match(T__20);
 				setState(122);
+				match(T__9);
+				setState(123);
+				match(WORD);
+				setState(124);
+				match(T__21);
+				setState(125);
+				match(NUM);
+				setState(126);
 				match(T__12);
 				}
 				break;
@@ -633,13 +664,13 @@ public class QuizGeneratorParser extends Parser {
 				_localctx = new CreateQuestionNameContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(123);
+				setState(127);
 				match(ID);
-				setState(124);
+				setState(128);
 				match(T__22);
-				setState(125);
+				setState(129);
 				match(T__17);
-				setState(126);
+				setState(130);
 				match(WORD);
 				}
 				break;
@@ -700,16 +731,16 @@ public class QuizGeneratorParser extends Parser {
 
 	public final AssignmentContext assignment() throws RecognitionException {
 		AssignmentContext _localctx = new AssignmentContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_assignment);
+		enterRule(_localctx, 16, RULE_assignment);
 		try {
-			setState(134);
+			setState(138);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,8,_ctx) ) {
 			case 1:
 				_localctx = new DeclarAssignContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(129);
+				setState(133);
 				declaration();
 				}
 				break;
@@ -717,7 +748,7 @@ public class QuizGeneratorParser extends Parser {
 				_localctx = new AttribAssignContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(130);
+				setState(134);
 				attribution();
 				}
 				break;
@@ -725,7 +756,7 @@ public class QuizGeneratorParser extends Parser {
 				_localctx = new QuestDeclarAssignContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(131);
+				setState(135);
 				questionDeclaration();
 				}
 				break;
@@ -733,7 +764,7 @@ public class QuizGeneratorParser extends Parser {
 				_localctx = new QuestAttribAssignContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(132);
+				setState(136);
 				questionAttribution();
 				}
 				break;
@@ -741,7 +772,7 @@ public class QuizGeneratorParser extends Parser {
 				_localctx = new BdAttribAssignContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(133);
+				setState(137);
 				bdAttribution();
 				}
 				break;
@@ -786,18 +817,18 @@ public class QuizGeneratorParser extends Parser {
 
 	public final DeclarationContext declaration() throws RecognitionException {
 		DeclarationContext _localctx = new DeclarationContext(_ctx, getState());
-		enterRule(_localctx, 16, RULE_declaration);
+		enterRule(_localctx, 18, RULE_declaration);
 		try {
-			setState(143);
+			setState(147);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,9,_ctx) ) {
 			case 1:
 				_localctx = new DeclarVarContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(136);
+				setState(140);
 				type();
-				setState(137);
+				setState(141);
 				match(ID);
 				}
 				break;
@@ -805,11 +836,11 @@ public class QuizGeneratorParser extends Parser {
 				_localctx = new DeclarArrayContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(139);
+				setState(143);
 				type();
-				setState(140);
+				setState(144);
 				match(T__23);
-				setState(141);
+				setState(145);
 				match(ID);
 				}
 				break;
@@ -863,32 +894,32 @@ public class QuizGeneratorParser extends Parser {
 
 	public final AttributionContext attribution() throws RecognitionException {
 		AttributionContext _localctx = new AttributionContext(_ctx, getState());
-		enterRule(_localctx, 18, RULE_attribution);
+		enterRule(_localctx, 20, RULE_attribution);
 		int _la;
 		try {
 			int _alt;
-			setState(169);
+			setState(173);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,13,_ctx) ) {
 			case 1:
 				_localctx = new AttribVarContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(146);
+				setState(150);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__26) | (1L << T__27) | (1L << T__28))) != 0)) {
 					{
-					setState(145);
+					setState(149);
 					type();
 					}
 				}
 
-				setState(148);
+				setState(152);
 				match(ID);
-				setState(149);
+				setState(153);
 				match(T__17);
-				setState(150);
+				setState(154);
 				expr();
 				}
 				break;
@@ -896,45 +927,45 @@ public class QuizGeneratorParser extends Parser {
 				_localctx = new AttribArrayContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(152);
+				setState(156);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__26) | (1L << T__27) | (1L << T__28))) != 0)) {
 					{
-					setState(151);
+					setState(155);
 					type();
 					}
 				}
 
-				setState(154);
+				setState(158);
 				match(T__23);
-				setState(155);
+				setState(159);
 				match(ID);
-				setState(156);
+				setState(160);
 				match(T__17);
-				setState(157);
+				setState(161);
 				match(T__24);
-				setState(163);
+				setState(167);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,12,_ctx);
 				while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 					if ( _alt==1 ) {
 						{
 						{
-						setState(158);
+						setState(162);
 						expr();
-						setState(159);
+						setState(163);
 						match(T__21);
 						}
 						} 
 					}
-					setState(165);
+					setState(169);
 					_errHandler.sync(this);
 					_alt = getInterpreter().adaptivePredict(_input,12,_ctx);
 				}
-				setState(166);
+				setState(170);
 				expr();
-				setState(167);
+				setState(171);
 				match(T__25);
 				}
 				break;
@@ -975,16 +1006,16 @@ public class QuizGeneratorParser extends Parser {
 
 	public final ExprContext expr() throws RecognitionException {
 		ExprContext _localctx = new ExprContext(_ctx, getState());
-		enterRule(_localctx, 20, RULE_expr);
+		enterRule(_localctx, 22, RULE_expr);
 		try {
-			setState(173);
+			setState(177);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case WORD:
 				_localctx = new WordExprContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(171);
+				setState(175);
 				match(WORD);
 				}
 				break;
@@ -994,7 +1025,7 @@ public class QuizGeneratorParser extends Parser {
 				_localctx = new MathContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(172);
+				setState(176);
 				mathExpr(0);
 				}
 				break;
@@ -1036,16 +1067,16 @@ public class QuizGeneratorParser extends Parser {
 
 	public final TypeContext type() throws RecognitionException {
 		TypeContext _localctx = new TypeContext(_ctx, getState());
-		enterRule(_localctx, 22, RULE_type);
+		enterRule(_localctx, 24, RULE_type);
 		try {
-			setState(178);
+			setState(182);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case T__26:
 				_localctx = new TypeStringContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(175);
+				setState(179);
 				match(T__26);
 				}
 				break;
@@ -1053,7 +1084,7 @@ public class QuizGeneratorParser extends Parser {
 				_localctx = new TypeIntContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(176);
+				setState(180);
 				match(T__27);
 				}
 				break;
@@ -1061,7 +1092,7 @@ public class QuizGeneratorParser extends Parser {
 				_localctx = new TypeDoubleContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(177);
+				setState(181);
 				match(T__28);
 				}
 				break;
@@ -1099,24 +1130,24 @@ public class QuizGeneratorParser extends Parser {
 
 	public final BdAttributionContext bdAttribution() throws RecognitionException {
 		BdAttributionContext _localctx = new BdAttributionContext(_ctx, getState());
-		enterRule(_localctx, 24, RULE_bdAttribution);
+		enterRule(_localctx, 26, RULE_bdAttribution);
 		try {
 			_localctx = new BdAttribContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(180);
-			match(T__29);
-			setState(181);
-			match(ID);
-			setState(182);
-			match(T__17);
-			setState(183);
-			match(T__30);
 			setState(184);
-			match(T__9);
+			match(T__29);
 			setState(185);
-			match(WORD);
+			match(ID);
 			setState(186);
+			match(T__17);
+			setState(187);
+			match(T__30);
+			setState(188);
+			match(T__9);
+			setState(189);
+			match(WORD);
+			setState(190);
 			match(T__12);
 			}
 		}
@@ -1140,11 +1171,11 @@ public class QuizGeneratorParser extends Parser {
 
 	public final QuestionTypeContext questionType() throws RecognitionException {
 		QuestionTypeContext _localctx = new QuestionTypeContext(_ctx, getState());
-		enterRule(_localctx, 26, RULE_questionType);
+		enterRule(_localctx, 28, RULE_questionType);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(188);
+			setState(192);
 			match(T__15);
 			}
 		}
@@ -1187,18 +1218,18 @@ public class QuizGeneratorParser extends Parser {
 
 	public final QuestionDeclarationContext questionDeclaration() throws RecognitionException {
 		QuestionDeclarationContext _localctx = new QuestionDeclarationContext(_ctx, getState());
-		enterRule(_localctx, 28, RULE_questionDeclaration);
+		enterRule(_localctx, 30, RULE_questionDeclaration);
 		try {
-			setState(197);
+			setState(201);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,16,_ctx) ) {
 			case 1:
 				_localctx = new QuestDeclarVarContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(190);
+				setState(194);
 				questionType();
-				setState(191);
+				setState(195);
 				match(ID);
 				}
 				break;
@@ -1206,11 +1237,11 @@ public class QuizGeneratorParser extends Parser {
 				_localctx = new QuestDeclarArrayContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(193);
+				setState(197);
 				questionType();
-				setState(194);
+				setState(198);
 				match(T__23);
-				setState(195);
+				setState(199);
 				match(ID);
 				}
 				break;
@@ -1270,41 +1301,41 @@ public class QuizGeneratorParser extends Parser {
 
 	public final QuestionAttributionContext questionAttribution() throws RecognitionException {
 		QuestionAttributionContext _localctx = new QuestionAttributionContext(_ctx, getState());
-		enterRule(_localctx, 30, RULE_questionAttribution);
+		enterRule(_localctx, 32, RULE_questionAttribution);
 		int _la;
 		try {
-			setState(228);
+			setState(232);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,19,_ctx) ) {
 			case 1:
 				_localctx = new QuestAttribVarContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(200);
+				setState(204);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==T__15) {
 					{
-					setState(199);
+					setState(203);
 					questionType();
 					}
 				}
 
-				setState(202);
-				match(ID);
-				setState(203);
-				match(T__17);
-				setState(204);
-				match(ID);
-				setState(205);
-				match(T__31);
 				setState(206);
-				match(T__9);
+				match(ID);
 				setState(207);
-				difficulty();
+				match(T__17);
 				setState(208);
-				match(T__21);
+				match(ID);
 				setState(209);
+				match(T__31);
+				setState(210);
+				match(T__9);
+				setState(211);
+				difficulty();
+				setState(212);
+				match(T__21);
+				setState(213);
 				_la = _input.LA(1);
 				if ( !(_la==ID || _la==WORD) ) {
 				_errHandler.recoverInline(this);
@@ -1314,7 +1345,7 @@ public class QuizGeneratorParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				setState(210);
+				setState(214);
 				match(T__12);
 				}
 				break;
@@ -1322,37 +1353,37 @@ public class QuizGeneratorParser extends Parser {
 				_localctx = new QuestAttribArrayContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(213);
+				setState(217);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==T__15) {
 					{
-					setState(212);
+					setState(216);
 					questionType();
 					}
 				}
 
-				setState(215);
-				match(T__23);
-				setState(216);
-				match(ID);
-				setState(217);
-				match(T__17);
-				setState(218);
-				match(ID);
 				setState(219);
-				match(T__31);
+				match(T__23);
 				setState(220);
-				match(T__9);
+				match(ID);
 				setState(221);
-				match(NUM);
+				match(T__17);
 				setState(222);
-				match(T__21);
+				match(ID);
 				setState(223);
-				difficulty();
+				match(T__31);
 				setState(224);
-				match(T__21);
+				match(T__9);
 				setState(225);
+				match(NUM);
+				setState(226);
+				match(T__21);
+				setState(227);
+				difficulty();
+				setState(228);
+				match(T__21);
+				setState(229);
 				_la = _input.LA(1);
 				if ( !(_la==ID || _la==WORD) ) {
 				_errHandler.recoverInline(this);
@@ -1362,7 +1393,7 @@ public class QuizGeneratorParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				setState(226);
+				setState(230);
 				match(T__12);
 				}
 				break;
@@ -1429,21 +1460,21 @@ public class QuizGeneratorParser extends Parser {
 
 	public final CommandContext command() throws RecognitionException {
 		CommandContext _localctx = new CommandContext(_ctx, getState());
-		enterRule(_localctx, 32, RULE_command);
+		enterRule(_localctx, 34, RULE_command);
 		int _la;
 		try {
-			setState(250);
+			setState(254);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,20,_ctx) ) {
 			case 1:
 				_localctx = new AnswerModeCommandContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(230);
+				setState(234);
 				match(T__32);
-				setState(231);
+				setState(235);
 				match(T__17);
-				setState(232);
+				setState(236);
 				testType();
 				}
 				break;
@@ -1451,15 +1482,15 @@ public class QuizGeneratorParser extends Parser {
 				_localctx = new AddCommandContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(233);
-				match(ID);
-				setState(234);
-				match(T__33);
-				setState(235);
-				match(T__9);
-				setState(236);
-				match(ID);
 				setState(237);
+				match(ID);
+				setState(238);
+				match(T__33);
+				setState(239);
+				match(T__9);
+				setState(240);
+				match(ID);
+				setState(241);
 				match(T__12);
 				}
 				break;
@@ -1467,9 +1498,9 @@ public class QuizGeneratorParser extends Parser {
 				_localctx = new RandCommandContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(238);
+				setState(242);
 				match(T__34);
-				setState(239);
+				setState(243);
 				randMethod();
 				}
 				break;
@@ -1477,15 +1508,15 @@ public class QuizGeneratorParser extends Parser {
 				_localctx = new NumAnswersCommandContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(240);
-				match(ID);
-				setState(241);
-				match(T__35);
-				setState(242);
-				match(T__9);
-				setState(243);
-				match(NUM);
 				setState(244);
+				match(ID);
+				setState(245);
+				match(T__35);
+				setState(246);
+				match(T__9);
+				setState(247);
+				match(NUM);
+				setState(248);
 				match(T__12);
 				}
 				break;
@@ -1493,9 +1524,9 @@ public class QuizGeneratorParser extends Parser {
 				_localctx = new PrintCommandContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(245);
+				setState(249);
 				match(T__36);
-				setState(246);
+				setState(250);
 				_la = _input.LA(1);
 				if ( !(_la==ID || _la==WORD) ) {
 				_errHandler.recoverInline(this);
@@ -1511,11 +1542,11 @@ public class QuizGeneratorParser extends Parser {
 				_localctx = new MathExprCommandContext(_localctx);
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(247);
+				setState(251);
 				match(ID);
-				setState(248);
+				setState(252);
 				match(T__17);
-				setState(249);
+				setState(253);
 				mathExpr(0);
 				}
 				break;
@@ -1587,14 +1618,14 @@ public class QuizGeneratorParser extends Parser {
 		int _parentState = getState();
 		MathExprContext _localctx = new MathExprContext(_ctx, _parentState);
 		MathExprContext _prevctx = _localctx;
-		int _startState = 34;
-		enterRecursionRule(_localctx, 34, RULE_mathExpr, _p);
+		int _startState = 36;
+		enterRecursionRule(_localctx, 36, RULE_mathExpr, _p);
 		int _la;
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(259);
+			setState(263);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case NUM:
@@ -1603,7 +1634,7 @@ public class QuizGeneratorParser extends Parser {
 				_ctx = _localctx;
 				_prevctx = _localctx;
 
-				setState(253);
+				setState(257);
 				match(NUM);
 				}
 				break;
@@ -1612,11 +1643,11 @@ public class QuizGeneratorParser extends Parser {
 				_localctx = new ParenthExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(254);
+				setState(258);
 				match(T__9);
-				setState(255);
+				setState(259);
 				mathExpr(0);
-				setState(256);
+				setState(260);
 				match(T__12);
 				}
 				break;
@@ -1625,7 +1656,7 @@ public class QuizGeneratorParser extends Parser {
 				_localctx = new IdExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(258);
+				setState(262);
 				match(ID);
 				}
 				break;
@@ -1633,7 +1664,7 @@ public class QuizGeneratorParser extends Parser {
 				throw new NoViableAltException(this);
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(269);
+			setState(273);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,23,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
@@ -1641,16 +1672,16 @@ public class QuizGeneratorParser extends Parser {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					setState(267);
+					setState(271);
 					_errHandler.sync(this);
 					switch ( getInterpreter().adaptivePredict(_input,22,_ctx) ) {
 					case 1:
 						{
 						_localctx = new MultDivExprContext(new MathExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_mathExpr);
-						setState(261);
+						setState(265);
 						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
-						setState(262);
+						setState(266);
 						((MultDivExprContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !(_la==T__37 || _la==T__38) ) {
@@ -1661,7 +1692,7 @@ public class QuizGeneratorParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(263);
+						setState(267);
 						mathExpr(6);
 						}
 						break;
@@ -1669,9 +1700,9 @@ public class QuizGeneratorParser extends Parser {
 						{
 						_localctx = new AddSubExprContext(new MathExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_mathExpr);
-						setState(264);
+						setState(268);
 						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
-						setState(265);
+						setState(269);
 						((AddSubExprContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !(_la==T__39 || _la==T__40) ) {
@@ -1682,14 +1713,14 @@ public class QuizGeneratorParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(266);
+						setState(270);
 						mathExpr(5);
 						}
 						break;
 					}
 					} 
 				}
-				setState(271);
+				setState(275);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,23,_ctx);
 			}
@@ -1728,16 +1759,16 @@ public class QuizGeneratorParser extends Parser {
 
 	public final RandMethodContext randMethod() throws RecognitionException {
 		RandMethodContext _localctx = new RandMethodContext(_ctx, getState());
-		enterRule(_localctx, 36, RULE_randMethod);
+		enterRule(_localctx, 38, RULE_randMethod);
 		try {
-			setState(275);
+			setState(279);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,24,_ctx) ) {
 			case 1:
 				_localctx = new IdRandMethodContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(272);
+				setState(276);
 				match(ID);
 				}
 				break;
@@ -1745,9 +1776,9 @@ public class QuizGeneratorParser extends Parser {
 				_localctx = new AnswersRandMethodContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(273);
+				setState(277);
 				match(ID);
-				setState(274);
+				setState(278);
 				match(T__41);
 				}
 				break;
@@ -1784,16 +1815,16 @@ public class QuizGeneratorParser extends Parser {
 
 	public final TestTypeContext testType() throws RecognitionException {
 		TestTypeContext _localctx = new TestTypeContext(_ctx, getState());
-		enterRule(_localctx, 38, RULE_testType);
+		enterRule(_localctx, 40, RULE_testType);
 		try {
-			setState(279);
+			setState(283);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case T__42:
 				_localctx = new MultipleChoiceTypeContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(277);
+				setState(281);
 				match(T__42);
 				}
 				break;
@@ -1801,7 +1832,7 @@ public class QuizGeneratorParser extends Parser {
 				_localctx = new TrueOrFalseTypeContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(278);
+				setState(282);
 				match(T__43);
 				}
 				break;
@@ -1843,16 +1874,16 @@ public class QuizGeneratorParser extends Parser {
 
 	public final DifficultyContext difficulty() throws RecognitionException {
 		DifficultyContext _localctx = new DifficultyContext(_ctx, getState());
-		enterRule(_localctx, 40, RULE_difficulty);
+		enterRule(_localctx, 42, RULE_difficulty);
 		try {
-			setState(284);
+			setState(288);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case T__44:
 				_localctx = new EasyDifficultyContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(281);
+				setState(285);
 				match(T__44);
 				}
 				break;
@@ -1860,7 +1891,7 @@ public class QuizGeneratorParser extends Parser {
 				_localctx = new MediumDifficultyContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(282);
+				setState(286);
 				match(T__45);
 				}
 				break;
@@ -1868,7 +1899,7 @@ public class QuizGeneratorParser extends Parser {
 				_localctx = new HardDifficultyContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(283);
+				setState(287);
 				match(T__46);
 				}
 				break;
@@ -1889,7 +1920,7 @@ public class QuizGeneratorParser extends Parser {
 
 	public boolean sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
 		switch (ruleIndex) {
-		case 17:
+		case 18:
 			return mathExpr_sempred((MathExprContext)_localctx, predIndex);
 		}
 		return true;
@@ -1905,105 +1936,106 @@ public class QuizGeneratorParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\66\u0121\4\2\t\2"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\66\u0125\4\2\t\2"+
 		"\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
 		"\t\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
-		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\3\2\3\2\3\2\3\2\7\2\61\n\2\f"+
-		"\2\16\2\64\13\2\3\2\3\2\3\2\3\3\3\3\3\3\3\3\3\3\5\3>\n\3\3\4\3\4\3\4\3"+
-		"\4\3\4\3\4\6\4F\n\4\r\4\16\4G\3\4\3\4\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5"+
-		"\3\5\6\5U\n\5\r\5\16\5V\3\5\5\5Z\n\5\3\5\3\5\3\6\3\6\3\6\6\6a\n\6\r\6"+
-		"\16\6b\3\7\3\7\3\7\5\7h\n\7\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3"+
-		"\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\5\b\u0082\n\b\3"+
-		"\t\3\t\3\t\3\t\3\t\5\t\u0089\n\t\3\n\3\n\3\n\3\n\3\n\3\n\3\n\5\n\u0092"+
-		"\n\n\3\13\5\13\u0095\n\13\3\13\3\13\3\13\3\13\5\13\u009b\n\13\3\13\3\13"+
-		"\3\13\3\13\3\13\3\13\3\13\7\13\u00a4\n\13\f\13\16\13\u00a7\13\13\3\13"+
-		"\3\13\3\13\5\13\u00ac\n\13\3\f\3\f\5\f\u00b0\n\f\3\r\3\r\3\r\5\r\u00b5"+
-		"\n\r\3\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16\3\17\3\17\3\20\3\20\3\20"+
-		"\3\20\3\20\3\20\3\20\5\20\u00c8\n\20\3\21\5\21\u00cb\n\21\3\21\3\21\3"+
-		"\21\3\21\3\21\3\21\3\21\3\21\3\21\3\21\3\21\5\21\u00d8\n\21\3\21\3\21"+
-		"\3\21\3\21\3\21\3\21\3\21\3\21\3\21\3\21\3\21\3\21\3\21\5\21\u00e7\n\21"+
-		"\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22"+
-		"\3\22\3\22\3\22\3\22\3\22\3\22\5\22\u00fd\n\22\3\23\3\23\3\23\3\23\3\23"+
-		"\3\23\3\23\5\23\u0106\n\23\3\23\3\23\3\23\3\23\3\23\3\23\7\23\u010e\n"+
-		"\23\f\23\16\23\u0111\13\23\3\24\3\24\3\24\5\24\u0116\n\24\3\25\3\25\5"+
-		"\25\u011a\n\25\3\26\3\26\3\26\5\26\u011f\n\26\3\26\2\3$\27\2\4\6\b\n\f"+
-		"\16\20\22\24\26\30\32\34\36 \"$&(*\2\5\3\2\63\64\3\2()\3\2*+\2\u0135\2"+
-		",\3\2\2\2\4=\3\2\2\2\6?\3\2\2\2\bK\3\2\2\2\n]\3\2\2\2\fg\3\2\2\2\16\u0081"+
-		"\3\2\2\2\20\u0088\3\2\2\2\22\u0091\3\2\2\2\24\u00ab\3\2\2\2\26\u00af\3"+
-		"\2\2\2\30\u00b4\3\2\2\2\32\u00b6\3\2\2\2\34\u00be\3\2\2\2\36\u00c7\3\2"+
-		"\2\2 \u00e6\3\2\2\2\"\u00fc\3\2\2\2$\u0105\3\2\2\2&\u0115\3\2\2\2(\u0119"+
-		"\3\2\2\2*\u011e\3\2\2\2,-\7\3\2\2-.\7\4\2\2.\62\7\63\2\2/\61\5\4\3\2\60"+
-		"/\3\2\2\2\61\64\3\2\2\2\62\60\3\2\2\2\62\63\3\2\2\2\63\65\3\2\2\2\64\62"+
-		"\3\2\2\2\65\66\7\5\2\2\66\67\7\2\2\3\67\3\3\2\2\289\5\f\7\29:\7\6\2\2"+
-		":>\3\2\2\2;>\5\6\4\2<>\5\b\5\2=8\3\2\2\2=;\3\2\2\2=<\3\2\2\2>\5\3\2\2"+
-		"\2?@\7\7\2\2@A\7\63\2\2AB\7\b\2\2BC\7\63\2\2CE\7\t\2\2DF\5\4\3\2ED\3\2"+
-		"\2\2FG\3\2\2\2GE\3\2\2\2GH\3\2\2\2HI\3\2\2\2IJ\7\n\2\2J\7\3\2\2\2KL\7"+
-		"\13\2\2LM\7\f\2\2MN\7\63\2\2NO\7\r\2\2OP\7\63\2\2PQ\7\16\2\2QR\7\17\2"+
-		"\2RT\7\t\2\2SU\5\4\3\2TS\3\2\2\2UV\3\2\2\2VT\3\2\2\2VW\3\2\2\2WY\3\2\2"+
-		"\2XZ\5\n\6\2YX\3\2\2\2YZ\3\2\2\2Z[\3\2\2\2[\\\7\20\2\2\\\t\3\2\2\2]^\7"+
-		"\21\2\2^`\7\t\2\2_a\5\4\3\2`_\3\2\2\2ab\3\2\2\2b`\3\2\2\2bc\3\2\2\2c\13"+
-		"\3\2\2\2dh\5\20\t\2eh\5\"\22\2fh\5\16\b\2gd\3\2\2\2ge\3\2\2\2gf\3\2\2"+
-		"\2h\r\3\2\2\2ij\7\22\2\2jk\7\63\2\2kl\7\23\2\2lm\7\24\2\2m\u0082\7\64"+
-		"\2\2no\7\63\2\2op\7\25\2\2pq\7\24\2\2q\u0082\7\64\2\2rs\7\63\2\2st\7\26"+
-		"\2\2tu\7\24\2\2u\u0082\5*\26\2vw\7\63\2\2wx\7\27\2\2xy\7\f\2\2yz\7\64"+
-		"\2\2z{\7\30\2\2{|\7\62\2\2|\u0082\7\17\2\2}~\7\63\2\2~\177\7\31\2\2\177"+
-		"\u0080\7\24\2\2\u0080\u0082\7\64\2\2\u0081i\3\2\2\2\u0081n\3\2\2\2\u0081"+
-		"r\3\2\2\2\u0081v\3\2\2\2\u0081}\3\2\2\2\u0082\17\3\2\2\2\u0083\u0089\5"+
-		"\22\n\2\u0084\u0089\5\24\13\2\u0085\u0089\5\36\20\2\u0086\u0089\5 \21"+
-		"\2\u0087\u0089\5\32\16\2\u0088\u0083\3\2\2\2\u0088\u0084\3\2\2\2\u0088"+
-		"\u0085\3\2\2\2\u0088\u0086\3\2\2\2\u0088\u0087\3\2\2\2\u0089\21\3\2\2"+
-		"\2\u008a\u008b\5\30\r\2\u008b\u008c\7\63\2\2\u008c\u0092\3\2\2\2\u008d"+
-		"\u008e\5\30\r\2\u008e\u008f\7\32\2\2\u008f\u0090\7\63\2\2\u0090\u0092"+
-		"\3\2\2\2\u0091\u008a\3\2\2\2\u0091\u008d\3\2\2\2\u0092\23\3\2\2\2\u0093"+
-		"\u0095\5\30\r\2\u0094\u0093\3\2\2\2\u0094\u0095\3\2\2\2\u0095\u0096\3"+
-		"\2\2\2\u0096\u0097\7\63\2\2\u0097\u0098\7\24\2\2\u0098\u00ac\5\26\f\2"+
-		"\u0099\u009b\5\30\r\2\u009a\u0099\3\2\2\2\u009a\u009b\3\2\2\2\u009b\u009c"+
-		"\3\2\2\2\u009c\u009d\7\32\2\2\u009d\u009e\7\63\2\2\u009e\u009f\7\24\2"+
-		"\2\u009f\u00a5\7\33\2\2\u00a0\u00a1\5\26\f\2\u00a1\u00a2\7\30\2\2\u00a2"+
-		"\u00a4\3\2\2\2\u00a3\u00a0\3\2\2\2\u00a4\u00a7\3\2\2\2\u00a5\u00a3\3\2"+
-		"\2\2\u00a5\u00a6\3\2\2\2\u00a6\u00a8\3\2\2\2\u00a7\u00a5\3\2\2\2\u00a8"+
-		"\u00a9\5\26\f\2\u00a9\u00aa\7\34\2\2\u00aa\u00ac\3\2\2\2\u00ab\u0094\3"+
-		"\2\2\2\u00ab\u009a\3\2\2\2\u00ac\25\3\2\2\2\u00ad\u00b0\7\64\2\2\u00ae"+
-		"\u00b0\5$\23\2\u00af\u00ad\3\2\2\2\u00af\u00ae\3\2\2\2\u00b0\27\3\2\2"+
-		"\2\u00b1\u00b5\7\35\2\2\u00b2\u00b5\7\36\2\2\u00b3\u00b5\7\37\2\2\u00b4"+
-		"\u00b1\3\2\2\2\u00b4\u00b2\3\2\2\2\u00b4\u00b3\3\2\2\2\u00b5\31\3\2\2"+
-		"\2\u00b6\u00b7\7 \2\2\u00b7\u00b8\7\63\2\2\u00b8\u00b9\7\24\2\2\u00b9"+
-		"\u00ba\7!\2\2\u00ba\u00bb\7\f\2\2\u00bb\u00bc\7\64\2\2\u00bc\u00bd\7\17"+
-		"\2\2\u00bd\33\3\2\2\2\u00be\u00bf\7\22\2\2\u00bf\35\3\2\2\2\u00c0\u00c1"+
-		"\5\34\17\2\u00c1\u00c2\7\63\2\2\u00c2\u00c8\3\2\2\2\u00c3\u00c4\5\34\17"+
-		"\2\u00c4\u00c5\7\32\2\2\u00c5\u00c6\7\63\2\2\u00c6\u00c8\3\2\2\2\u00c7"+
-		"\u00c0\3\2\2\2\u00c7\u00c3\3\2\2\2\u00c8\37\3\2\2\2\u00c9\u00cb\5\34\17"+
-		"\2\u00ca\u00c9\3\2\2\2\u00ca\u00cb\3\2\2\2\u00cb\u00cc\3\2\2\2\u00cc\u00cd"+
-		"\7\63\2\2\u00cd\u00ce\7\24\2\2\u00ce\u00cf\7\63\2\2\u00cf\u00d0\7\"\2"+
-		"\2\u00d0\u00d1\7\f\2\2\u00d1\u00d2\5*\26\2\u00d2\u00d3\7\30\2\2\u00d3"+
-		"\u00d4\t\2\2\2\u00d4\u00d5\7\17\2\2\u00d5\u00e7\3\2\2\2\u00d6\u00d8\5"+
-		"\34\17\2\u00d7\u00d6\3\2\2\2\u00d7\u00d8\3\2\2\2\u00d8\u00d9\3\2\2\2\u00d9"+
-		"\u00da\7\32\2\2\u00da\u00db\7\63\2\2\u00db\u00dc\7\24\2\2\u00dc\u00dd"+
-		"\7\63\2\2\u00dd\u00de\7\"\2\2\u00de\u00df\7\f\2\2\u00df\u00e0\7\62\2\2"+
-		"\u00e0\u00e1\7\30\2\2\u00e1\u00e2\5*\26\2\u00e2\u00e3\7\30\2\2\u00e3\u00e4"+
-		"\t\2\2\2\u00e4\u00e5\7\17\2\2\u00e5\u00e7\3\2\2\2\u00e6\u00ca\3\2\2\2"+
-		"\u00e6\u00d7\3\2\2\2\u00e7!\3\2\2\2\u00e8\u00e9\7#\2\2\u00e9\u00ea\7\24"+
-		"\2\2\u00ea\u00fd\5(\25\2\u00eb\u00ec\7\63\2\2\u00ec\u00ed\7$\2\2\u00ed"+
-		"\u00ee\7\f\2\2\u00ee\u00ef\7\63\2\2\u00ef\u00fd\7\17\2\2\u00f0\u00f1\7"+
-		"%\2\2\u00f1\u00fd\5&\24\2\u00f2\u00f3\7\63\2\2\u00f3\u00f4\7&\2\2\u00f4"+
-		"\u00f5\7\f\2\2\u00f5\u00f6\7\62\2\2\u00f6\u00fd\7\17\2\2\u00f7\u00f8\7"+
-		"\'\2\2\u00f8\u00fd\t\2\2\2\u00f9\u00fa\7\63\2\2\u00fa\u00fb\7\24\2\2\u00fb"+
-		"\u00fd\5$\23\2\u00fc\u00e8\3\2\2\2\u00fc\u00eb\3\2\2\2\u00fc\u00f0\3\2"+
-		"\2\2\u00fc\u00f2\3\2\2\2\u00fc\u00f7\3\2\2\2\u00fc\u00f9\3\2\2\2\u00fd"+
-		"#\3\2\2\2\u00fe\u00ff\b\23\1\2\u00ff\u0106\7\62\2\2\u0100\u0101\7\f\2"+
-		"\2\u0101\u0102\5$\23\2\u0102\u0103\7\17\2\2\u0103\u0106\3\2\2\2\u0104"+
-		"\u0106\7\63\2\2\u0105\u00fe\3\2\2\2\u0105\u0100\3\2\2\2\u0105\u0104\3"+
-		"\2\2\2\u0106\u010f\3\2\2\2\u0107\u0108\f\7\2\2\u0108\u0109\t\3\2\2\u0109"+
-		"\u010e\5$\23\b\u010a\u010b\f\6\2\2\u010b\u010c\t\4\2\2\u010c\u010e\5$"+
-		"\23\7\u010d\u0107\3\2\2\2\u010d\u010a\3\2\2\2\u010e\u0111\3\2\2\2\u010f"+
-		"\u010d\3\2\2\2\u010f\u0110\3\2\2\2\u0110%\3\2\2\2\u0111\u010f\3\2\2\2"+
-		"\u0112\u0116\7\63\2\2\u0113\u0114\7\63\2\2\u0114\u0116\7,\2\2\u0115\u0112"+
-		"\3\2\2\2\u0115\u0113\3\2\2\2\u0116\'\3\2\2\2\u0117\u011a\7-\2\2\u0118"+
-		"\u011a\7.\2\2\u0119\u0117\3\2\2\2\u0119\u0118\3\2\2\2\u011a)\3\2\2\2\u011b"+
-		"\u011f\7/\2\2\u011c\u011f\7\60\2\2\u011d\u011f\7\61\2\2\u011e\u011b\3"+
-		"\2\2\2\u011e\u011c\3\2\2\2\u011e\u011d\3\2\2\2\u011f+\3\2\2\2\35\62=G"+
-		"VYbg\u0081\u0088\u0091\u0094\u009a\u00a5\u00ab\u00af\u00b4\u00c7\u00ca"+
-		"\u00d7\u00e6\u00fc\u0105\u010d\u010f\u0115\u0119\u011e";
+		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\3\2\3\2\3\2\3\2\7\2"+
+		"\63\n\2\f\2\16\2\66\13\2\3\2\3\2\3\2\3\3\3\3\3\3\3\3\3\3\5\3@\n\3\3\4"+
+		"\3\4\3\4\3\4\3\4\3\4\6\4H\n\4\r\4\16\4I\3\4\3\4\3\5\3\5\3\6\3\6\3\6\3"+
+		"\6\3\6\3\6\3\6\3\6\3\6\6\6Y\n\6\r\6\16\6Z\3\6\5\6^\n\6\3\6\3\6\3\7\3\7"+
+		"\3\7\6\7e\n\7\r\7\16\7f\3\b\3\b\3\b\5\bl\n\b\3\t\3\t\3\t\3\t\3\t\3\t\3"+
+		"\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t"+
+		"\5\t\u0086\n\t\3\n\3\n\3\n\3\n\3\n\5\n\u008d\n\n\3\13\3\13\3\13\3\13\3"+
+		"\13\3\13\3\13\5\13\u0096\n\13\3\f\5\f\u0099\n\f\3\f\3\f\3\f\3\f\5\f\u009f"+
+		"\n\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\7\f\u00a8\n\f\f\f\16\f\u00ab\13\f\3\f"+
+		"\3\f\3\f\5\f\u00b0\n\f\3\r\3\r\5\r\u00b4\n\r\3\16\3\16\3\16\5\16\u00b9"+
+		"\n\16\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\20\3\20\3\21\3\21\3\21"+
+		"\3\21\3\21\3\21\3\21\5\21\u00cc\n\21\3\22\5\22\u00cf\n\22\3\22\3\22\3"+
+		"\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\5\22\u00dc\n\22\3\22\3\22"+
+		"\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\5\22\u00eb\n\22"+
+		"\3\23\3\23\3\23\3\23\3\23\3\23\3\23\3\23\3\23\3\23\3\23\3\23\3\23\3\23"+
+		"\3\23\3\23\3\23\3\23\3\23\3\23\5\23\u0101\n\23\3\24\3\24\3\24\3\24\3\24"+
+		"\3\24\3\24\5\24\u010a\n\24\3\24\3\24\3\24\3\24\3\24\3\24\7\24\u0112\n"+
+		"\24\f\24\16\24\u0115\13\24\3\25\3\25\3\25\5\25\u011a\n\25\3\26\3\26\5"+
+		"\26\u011e\n\26\3\27\3\27\3\27\5\27\u0123\n\27\3\27\2\3&\30\2\4\6\b\n\f"+
+		"\16\20\22\24\26\30\32\34\36 \"$&(*,\2\5\3\2\63\64\3\2()\3\2*+\2\u0138"+
+		"\2.\3\2\2\2\4?\3\2\2\2\6A\3\2\2\2\bM\3\2\2\2\nO\3\2\2\2\fa\3\2\2\2\16"+
+		"k\3\2\2\2\20\u0085\3\2\2\2\22\u008c\3\2\2\2\24\u0095\3\2\2\2\26\u00af"+
+		"\3\2\2\2\30\u00b3\3\2\2\2\32\u00b8\3\2\2\2\34\u00ba\3\2\2\2\36\u00c2\3"+
+		"\2\2\2 \u00cb\3\2\2\2\"\u00ea\3\2\2\2$\u0100\3\2\2\2&\u0109\3\2\2\2(\u0119"+
+		"\3\2\2\2*\u011d\3\2\2\2,\u0122\3\2\2\2./\7\3\2\2/\60\7\4\2\2\60\64\7\63"+
+		"\2\2\61\63\5\4\3\2\62\61\3\2\2\2\63\66\3\2\2\2\64\62\3\2\2\2\64\65\3\2"+
+		"\2\2\65\67\3\2\2\2\66\64\3\2\2\2\678\7\5\2\289\7\2\2\39\3\3\2\2\2:;\5"+
+		"\16\b\2;<\7\6\2\2<@\3\2\2\2=@\5\6\4\2>@\5\n\6\2?:\3\2\2\2?=\3\2\2\2?>"+
+		"\3\2\2\2@\5\3\2\2\2AB\7\7\2\2BC\7\63\2\2CD\7\b\2\2DE\7\63\2\2EG\7\t\2"+
+		"\2FH\5\4\3\2GF\3\2\2\2HI\3\2\2\2IG\3\2\2\2IJ\3\2\2\2JK\3\2\2\2KL\5\b\5"+
+		"\2L\7\3\2\2\2MN\7\n\2\2N\t\3\2\2\2OP\7\13\2\2PQ\7\f\2\2QR\7\63\2\2RS\7"+
+		"\r\2\2ST\7\63\2\2TU\7\16\2\2UV\7\17\2\2VX\7\t\2\2WY\5\4\3\2XW\3\2\2\2"+
+		"YZ\3\2\2\2ZX\3\2\2\2Z[\3\2\2\2[]\3\2\2\2\\^\5\f\7\2]\\\3\2\2\2]^\3\2\2"+
+		"\2^_\3\2\2\2_`\7\20\2\2`\13\3\2\2\2ab\7\21\2\2bd\7\t\2\2ce\5\4\3\2dc\3"+
+		"\2\2\2ef\3\2\2\2fd\3\2\2\2fg\3\2\2\2g\r\3\2\2\2hl\5\22\n\2il\5$\23\2j"+
+		"l\5\20\t\2kh\3\2\2\2ki\3\2\2\2kj\3\2\2\2l\17\3\2\2\2mn\7\22\2\2no\7\63"+
+		"\2\2op\7\23\2\2pq\7\24\2\2q\u0086\7\64\2\2rs\7\63\2\2st\7\25\2\2tu\7\24"+
+		"\2\2u\u0086\7\64\2\2vw\7\63\2\2wx\7\26\2\2xy\7\24\2\2y\u0086\5,\27\2z"+
+		"{\7\63\2\2{|\7\27\2\2|}\7\f\2\2}~\7\64\2\2~\177\7\30\2\2\177\u0080\7\62"+
+		"\2\2\u0080\u0086\7\17\2\2\u0081\u0082\7\63\2\2\u0082\u0083\7\31\2\2\u0083"+
+		"\u0084\7\24\2\2\u0084\u0086\7\64\2\2\u0085m\3\2\2\2\u0085r\3\2\2\2\u0085"+
+		"v\3\2\2\2\u0085z\3\2\2\2\u0085\u0081\3\2\2\2\u0086\21\3\2\2\2\u0087\u008d"+
+		"\5\24\13\2\u0088\u008d\5\26\f\2\u0089\u008d\5 \21\2\u008a\u008d\5\"\22"+
+		"\2\u008b\u008d\5\34\17\2\u008c\u0087\3\2\2\2\u008c\u0088\3\2\2\2\u008c"+
+		"\u0089\3\2\2\2\u008c\u008a\3\2\2\2\u008c\u008b\3\2\2\2\u008d\23\3\2\2"+
+		"\2\u008e\u008f\5\32\16\2\u008f\u0090\7\63\2\2\u0090\u0096\3\2\2\2\u0091"+
+		"\u0092\5\32\16\2\u0092\u0093\7\32\2\2\u0093\u0094\7\63\2\2\u0094\u0096"+
+		"\3\2\2\2\u0095\u008e\3\2\2\2\u0095\u0091\3\2\2\2\u0096\25\3\2\2\2\u0097"+
+		"\u0099\5\32\16\2\u0098\u0097\3\2\2\2\u0098\u0099\3\2\2\2\u0099\u009a\3"+
+		"\2\2\2\u009a\u009b\7\63\2\2\u009b\u009c\7\24\2\2\u009c\u00b0\5\30\r\2"+
+		"\u009d\u009f\5\32\16\2\u009e\u009d\3\2\2\2\u009e\u009f\3\2\2\2\u009f\u00a0"+
+		"\3\2\2\2\u00a0\u00a1\7\32\2\2\u00a1\u00a2\7\63\2\2\u00a2\u00a3\7\24\2"+
+		"\2\u00a3\u00a9\7\33\2\2\u00a4\u00a5\5\30\r\2\u00a5\u00a6\7\30\2\2\u00a6"+
+		"\u00a8\3\2\2\2\u00a7\u00a4\3\2\2\2\u00a8\u00ab\3\2\2\2\u00a9\u00a7\3\2"+
+		"\2\2\u00a9\u00aa\3\2\2\2\u00aa\u00ac\3\2\2\2\u00ab\u00a9\3\2\2\2\u00ac"+
+		"\u00ad\5\30\r\2\u00ad\u00ae\7\34\2\2\u00ae\u00b0\3\2\2\2\u00af\u0098\3"+
+		"\2\2\2\u00af\u009e\3\2\2\2\u00b0\27\3\2\2\2\u00b1\u00b4\7\64\2\2\u00b2"+
+		"\u00b4\5&\24\2\u00b3\u00b1\3\2\2\2\u00b3\u00b2\3\2\2\2\u00b4\31\3\2\2"+
+		"\2\u00b5\u00b9\7\35\2\2\u00b6\u00b9\7\36\2\2\u00b7\u00b9\7\37\2\2\u00b8"+
+		"\u00b5\3\2\2\2\u00b8\u00b6\3\2\2\2\u00b8\u00b7\3\2\2\2\u00b9\33\3\2\2"+
+		"\2\u00ba\u00bb\7 \2\2\u00bb\u00bc\7\63\2\2\u00bc\u00bd\7\24\2\2\u00bd"+
+		"\u00be\7!\2\2\u00be\u00bf\7\f\2\2\u00bf\u00c0\7\64\2\2\u00c0\u00c1\7\17"+
+		"\2\2\u00c1\35\3\2\2\2\u00c2\u00c3\7\22\2\2\u00c3\37\3\2\2\2\u00c4\u00c5"+
+		"\5\36\20\2\u00c5\u00c6\7\63\2\2\u00c6\u00cc\3\2\2\2\u00c7\u00c8\5\36\20"+
+		"\2\u00c8\u00c9\7\32\2\2\u00c9\u00ca\7\63\2\2\u00ca\u00cc\3\2\2\2\u00cb"+
+		"\u00c4\3\2\2\2\u00cb\u00c7\3\2\2\2\u00cc!\3\2\2\2\u00cd\u00cf\5\36\20"+
+		"\2\u00ce\u00cd\3\2\2\2\u00ce\u00cf\3\2\2\2\u00cf\u00d0\3\2\2\2\u00d0\u00d1"+
+		"\7\63\2\2\u00d1\u00d2\7\24\2\2\u00d2\u00d3\7\63\2\2\u00d3\u00d4\7\"\2"+
+		"\2\u00d4\u00d5\7\f\2\2\u00d5\u00d6\5,\27\2\u00d6\u00d7\7\30\2\2\u00d7"+
+		"\u00d8\t\2\2\2\u00d8\u00d9\7\17\2\2\u00d9\u00eb\3\2\2\2\u00da\u00dc\5"+
+		"\36\20\2\u00db\u00da\3\2\2\2\u00db\u00dc\3\2\2\2\u00dc\u00dd\3\2\2\2\u00dd"+
+		"\u00de\7\32\2\2\u00de\u00df\7\63\2\2\u00df\u00e0\7\24\2\2\u00e0\u00e1"+
+		"\7\63\2\2\u00e1\u00e2\7\"\2\2\u00e2\u00e3\7\f\2\2\u00e3\u00e4\7\62\2\2"+
+		"\u00e4\u00e5\7\30\2\2\u00e5\u00e6\5,\27\2\u00e6\u00e7\7\30\2\2\u00e7\u00e8"+
+		"\t\2\2\2\u00e8\u00e9\7\17\2\2\u00e9\u00eb\3\2\2\2\u00ea\u00ce\3\2\2\2"+
+		"\u00ea\u00db\3\2\2\2\u00eb#\3\2\2\2\u00ec\u00ed\7#\2\2\u00ed\u00ee\7\24"+
+		"\2\2\u00ee\u0101\5*\26\2\u00ef\u00f0\7\63\2\2\u00f0\u00f1\7$\2\2\u00f1"+
+		"\u00f2\7\f\2\2\u00f2\u00f3\7\63\2\2\u00f3\u0101\7\17\2\2\u00f4\u00f5\7"+
+		"%\2\2\u00f5\u0101\5(\25\2\u00f6\u00f7\7\63\2\2\u00f7\u00f8\7&\2\2\u00f8"+
+		"\u00f9\7\f\2\2\u00f9\u00fa\7\62\2\2\u00fa\u0101\7\17\2\2\u00fb\u00fc\7"+
+		"\'\2\2\u00fc\u0101\t\2\2\2\u00fd\u00fe\7\63\2\2\u00fe\u00ff\7\24\2\2\u00ff"+
+		"\u0101\5&\24\2\u0100\u00ec\3\2\2\2\u0100\u00ef\3\2\2\2\u0100\u00f4\3\2"+
+		"\2\2\u0100\u00f6\3\2\2\2\u0100\u00fb\3\2\2\2\u0100\u00fd\3\2\2\2\u0101"+
+		"%\3\2\2\2\u0102\u0103\b\24\1\2\u0103\u010a\7\62\2\2\u0104\u0105\7\f\2"+
+		"\2\u0105\u0106\5&\24\2\u0106\u0107\7\17\2\2\u0107\u010a\3\2\2\2\u0108"+
+		"\u010a\7\63\2\2\u0109\u0102\3\2\2\2\u0109\u0104\3\2\2\2\u0109\u0108\3"+
+		"\2\2\2\u010a\u0113\3\2\2\2\u010b\u010c\f\7\2\2\u010c\u010d\t\3\2\2\u010d"+
+		"\u0112\5&\24\b\u010e\u010f\f\6\2\2\u010f\u0110\t\4\2\2\u0110\u0112\5&"+
+		"\24\7\u0111\u010b\3\2\2\2\u0111\u010e\3\2\2\2\u0112\u0115\3\2\2\2\u0113"+
+		"\u0111\3\2\2\2\u0113\u0114\3\2\2\2\u0114\'\3\2\2\2\u0115\u0113\3\2\2\2"+
+		"\u0116\u011a\7\63\2\2\u0117\u0118\7\63\2\2\u0118\u011a\7,\2\2\u0119\u0116"+
+		"\3\2\2\2\u0119\u0117\3\2\2\2\u011a)\3\2\2\2\u011b\u011e\7-\2\2\u011c\u011e"+
+		"\7.\2\2\u011d\u011b\3\2\2\2\u011d\u011c\3\2\2\2\u011e+\3\2\2\2\u011f\u0123"+
+		"\7/\2\2\u0120\u0123\7\60\2\2\u0121\u0123\7\61\2\2\u0122\u011f\3\2\2\2"+
+		"\u0122\u0120\3\2\2\2\u0122\u0121\3\2\2\2\u0123-\3\2\2\2\35\64?IZ]fk\u0085"+
+		"\u008c\u0095\u0098\u009e\u00a9\u00af\u00b3\u00b8\u00cb\u00ce\u00db\u00ea"+
+		"\u0100\u0109\u0111\u0113\u0119\u011d\u0122";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

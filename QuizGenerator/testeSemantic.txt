@@ -1,9 +1,12 @@
 //exemplo de teste semantico
 Begin create quest1
+String[] themes = ["animal","ciancia", "geografia"];
+int x;
+for theme in themes:										
 	
-String[] themes = ["Animals", "1+2", "Maths"];
-DB data = load("bd1.question");
-Question x = data.get(easy,"theme");
+	String y = theme;								// adiciona as perguntas anteriormente obtidas ao array á lista
+																// 'questions' inicialmente definida
+endfor	
 
 
 endcreate
