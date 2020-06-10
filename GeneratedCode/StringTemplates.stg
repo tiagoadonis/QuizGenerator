@@ -1,0 +1,121 @@
+typeValue ::= [
+	"int" : "int", 
+	"double" : "double",
+	"String" : "String", 
+	default: "null"
+]
+
+module (name, stat) ::= <<
+import java.util.*;
+public class <name> {
+	public static void main (String [] args) {
+		<stats (stat)>
+	}
+}
+>>
+
+stats (stat) ::= <<
+<if (stat)> <stat; separator = "\n"> <endif>
+>>
+
+forBlock (elemType, elem, list, stat) ::= <<
+	for (<elemType> <elem> : <list>) {
+		<stats (stat)>
+	}
+>>
+
+ifBlock (elem1, elem2, stat, elseStat) ::= <<
+	if (<elem1>.equals(<elem2>.getCorrectLetter())) {
+		<stats (stat)>
+	}
+	<if (elseStat)>
+	else{
+		<stats (elseStat)>
+	}
+	<endif>
+>>
+
+newQuestion(name) ::= <<
+	Question <name> = new Question();
+>>
+
+questionText(name, text) ::= <<
+	<newQuestion (name)>
+	<name>.setTitle(<text>);
+>>
+
+questionDifficulty(name, dif) ::= <<
+	<name>.setDifficulty(<dif>);
+>>
+
+questionAnswer(name, text, points) ::= <<
+	Answer <name> = new Answer(<text>, <points>);
+>>
+
+declarVar(type, name) ::= <<
+	<type> <name>;
+>>
+
+declarArr(type, name) ::= <<
+	<type>[] <name>;
+>>
+
+attribVar(type, name, value) ::= <<
+	<if (type)> <type> <endif> <name> = <value>;
+>>
+
+attribArr(type, name, value) ::= <<
+	<if (type)> <type>[] <endif> <name> = {<value; separator = ", ">};
+>>
+
+newQuestionArr(name) ::= <<
+	ArrayList\<Question> <name> = new ArrayList\<>();
+>>
+
+newDB(name, file) ::= <<
+	DB <name> = new DB(<file>);
+>>
+
+getOneQuestion(question, data, difficulty, theme) ::= <<
+	Question <question> = <data>.get(<difficulty>, <theme>);
+>>
+
+getArrQuestion(list, data, num, difficulty, theme) ::= <<
+	ArrayList\<Question> <list> = <data>.get(<num>, <difficulty>, <theme>);
+>>
+
+answerMode(value) ::= <<
+	String answerMode = <value>;
+>>
+
+addAnswer(list, answer) ::= <<
+	<list>.add(<answer>);
+>>
+
+numAnswers(question, num) ::= <<
+	<question>.numAnswers(<num>);
+>>
+
+print(var) ::= <<
+	System.out.println(<var>);
+>>
+
+operation(elem1, op, elem2) ::= <<
+	<elem1> <op> <elem2>
+>>
+
+parenth(value) ::= <<
+	( <value> )
+>>
+
+randQuestions(name) ::= <<
+	Collections.shuffle(<name>);
+>>
+
+randAnswers(name) ::= <<
+	<name>.shuffleAnswers();
+>>
+
+atom(value) ::= <<
+	<value>
+>>
