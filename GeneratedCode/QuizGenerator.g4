@@ -7,8 +7,11 @@ stat: instructions ';'					#instStat
 	| ifBlock							#ifStat
 	;
 
-forBlock: 'for' ID 'in' ID ':' stat+ 'endfor'
+forBlock: 'for' ID 'in' ID ':' stat+ endf
 		;
+
+endf: 'endfor'
+    ;
 
 ifBlock: 'if' '(' ID '==' ID'.correctAnswer()' ')' ':' stat+ other? 'endif' 		//abre brevemente 
 	   ; 

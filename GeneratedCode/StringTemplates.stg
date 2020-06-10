@@ -48,8 +48,9 @@ questionDifficulty(name, dif) ::= <<
 	<name>.setDifficulty(<dif>);
 >>
 
-questionAnswer(name, text, points) ::= <<
+questionAnswer(name, text, points, question) ::= <<
 	Answer <name> = new Answer(<text>, <points>);
+	<question>.addAnswer(<name>);
 >>
 
 declarVar(type, name) ::= <<
@@ -88,8 +89,18 @@ answerMode(value) ::= <<
 	String answerMode = <value>;
 >>
 
-addAnswer(list, answer) ::= <<
-	<list>.add(<answer>);
+dbAddQuestion(DB, theme, name, question) ::= <<
+	<DB>.add(<theme>, <name>, <question>);
+>>
+
+arrayAddArray(arrayList, list) ::= <<
+	for(Question q : <arrayList>){
+		<list>.add(q);
+	}
+>>
+
+addQuestion(list, question) ::= <<
+	<list>.add(<question>);
 >>
 
 numAnswers(question, num) ::= <<
@@ -98,6 +109,10 @@ numAnswers(question, num) ::= <<
 
 print(var) ::= <<
 	System.out.println(<var>);
+>>
+
+printQuestion(question) ::= <<
+	System.out.println(<question>.toString());
 >>
 
 operation(elem1, op, elem2) ::= <<

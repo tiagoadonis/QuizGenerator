@@ -24,7 +24,7 @@ public class QuizGeneratorMain {
             // System.out.println(tree.toStringTree(parser));
             Compiler visitor0 = new Compiler();
             ST result = visitor0.visit(tree);
-            result.add("name", "TestGeneratedCode");
+            result.add("name", visitor0.getQuizName());
             System.out.println(result.render());
          }
       }
