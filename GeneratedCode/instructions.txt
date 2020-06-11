@@ -1,0 +1,15 @@
+MANUAL DE UTILIZAÇÃO - CÓDIGO GERADO:
+
+1- antlr4-build (vai dar erro, necessário correr uma segunda vez. O erro é gerado por haver duas gramáticas na pasta)
+
+2- antlr4-build
+
+3- antlr4-run testGeneratedCode.txt (faz a tradução do código de teste para java -> impressão é feita no terminal)
+
+4- antlr4-run testGeneratedCode.txt > [-nomeDoQuiz-].java (faz a tradução do código de teste para java -> impressão é feita no ficheiro "nomeDoQuiz.java")
+
+NOTA: o nome do ficheiro java dever ser o mesmo que o nome do questionário criado no código de teste, neste caso "testQuest.java"
+
+5- antlr4-build (para compilar o ficheiro java)
+
+6- java [-nomeDoQuiz] (caso tenha sido gerado com o códifo de teste"java testQuest")
