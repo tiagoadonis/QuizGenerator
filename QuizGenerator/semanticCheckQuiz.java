@@ -25,9 +25,9 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
 	
     
     @Override public Boolean visitInstStat(QuizGeneratorParser.InstStatContext ctx) { return visit(ctx.instructions()); }	
-	@Override public Boolean visitForStat(QuizGeneratorParser.ForStatContext ctx) {return visitChildren(ctx);}
+	@Override public Boolean visitForStat(QuizGeneratorParser.ForStatContext ctx) {return visit(ctx.forBlock());}
 	
-	@Override public Boolean visitIfStat(QuizGeneratorParser.IfStatContext ctx) { return visitChildren(ctx); }
+	@Override public Boolean visitIfStat(QuizGeneratorParser.IfStatContext ctx) { return visit(ctx.ifBlock());}
         
     @Override public Boolean visitForBlock(QuizGeneratorParser.ForBlockContext ctx) {
         
@@ -54,7 +54,7 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
         }
         Boolean check = true;
         
-        Iterator<QuizGeneratorParser.StatContext> iter = ctx.stat().iterator();
+        //Iterator<QuizGeneratorParser.StatContext> iter = ctx.stat().iterator();
         // while(iter.hasNext()){
             
         //     check = check && visit(iter.next());
@@ -83,7 +83,7 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
     
         @Override public Boolean visitCreateQuestionphrase(QuizGeneratorParser.CreateQuestionphraseContext ctx) {
         String id = ctx.ID().getText();
-        if(tipo_array_id.containsKey(id)){
+        if(tipo_array_id.containsKey(id) || tipo_array_for.containsKey(id)){
             ErrorHandling.printError(ctx, "cant use an array of questions for this");
             return false;
         }
@@ -92,7 +92,12 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
                 ErrorHandling.printError(ctx, "Variable '" + id + "' it is not a QUESTION!"); 
                 return false;
             }
-
+        }else if(tipo_for.containsKey(id)){
+            if(tipo_for.get(id) != TYPE.QUESTION ){
+                ErrorHandling.printError(ctx, "Variable '" + id + "' it is not a QUESTION!"); 
+                return false;
+            }
+        
 
         }else{
                 tipo_id.put(id,TYPE.QUESTION);
@@ -107,8 +112,8 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
 
 	@Override public Boolean visitCreateQuestionTheme(QuizGeneratorParser.CreateQuestionThemeContext ctx) {
         String id = ctx.ID().getText();
-        if(tipo_array_id.containsKey(id)){
-            ErrorHandling.printError(ctx, "cant use an array of questions for this"); 
+        if(tipo_array_id.containsKey(id) || tipo_array_for.containsKey(id)){
+            ErrorHandling.printError(ctx, "cant use an array of questions for this");
             return false;
         }
         if(tipo_id.containsKey(id)){
@@ -116,15 +121,19 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
                 ErrorHandling.printError(ctx, "Variable '" + id + "' it is not a QUESTION!"); 
                 return false;
             }
-
+        }else if(tipo_for.containsKey(id)){
+            if(tipo_for.get(id) != TYPE.QUESTION ){
+                ErrorHandling.printError(ctx, "Variable '" + id + "' it is not a QUESTION!"); 
+                return false;
+            }
+        
 
         }else{
-            ErrorHandling.printError(ctx, "Variable '" + id + "'  Doesn't exist!");     
-            return false;
+                tipo_id.put(id,TYPE.QUESTION);
+                ErrorHandling.printInfo(ctx, "done");
 
         
         }
-        
         
         ErrorHandling.printInfo(ctx, "done");
         return true; 
@@ -133,8 +142,8 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
 	
 	@Override public Boolean visitCreateQuestionDifficulty(QuizGeneratorParser.CreateQuestionDifficultyContext ctx) {
         String id = ctx.ID().getText();
-        if(tipo_array_id.containsKey(id)){
-            ErrorHandling.printError(ctx, "cant use an array of questions for this"); 
+        if(tipo_array_id.containsKey(id) || tipo_array_for.containsKey(id)){
+            ErrorHandling.printError(ctx, "cant use an array of questions for this");
             return false;
         }
         if(tipo_id.containsKey(id)){
@@ -142,15 +151,19 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
                 ErrorHandling.printError(ctx, "Variable '" + id + "' it is not a QUESTION!"); 
                 return false;
             }
-
+        }else if(tipo_for.containsKey(id)){
+            if(tipo_for.get(id) != TYPE.QUESTION ){
+                ErrorHandling.printError(ctx, "Variable '" + id + "' it is not a QUESTION!"); 
+                return false;
+            }
+        
 
         }else{
-            ErrorHandling.printError(ctx, "Variable '" + id + "'  Doesn't exist!");     
-            return false;
+                tipo_id.put(id,TYPE.QUESTION);
+                ErrorHandling.printInfo(ctx, "done");
 
         
         }
-        
         
         ErrorHandling.printInfo(ctx, "done");
         return true; 
@@ -158,8 +171,8 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
 	
 	@Override public Boolean visitCreateQuestionAnswer(QuizGeneratorParser.CreateQuestionAnswerContext ctx) {
         String id = ctx.ID().getText();
-        if(tipo_array_id.containsKey(id)){
-            ErrorHandling.printError(ctx, "cant use an array of questions for this"); 
+        if(tipo_array_id.containsKey(id) || tipo_array_for.containsKey(id)){
+            ErrorHandling.printError(ctx, "cant use an array of questions for this");
             return false;
         }
         if(tipo_id.containsKey(id)){
@@ -167,15 +180,19 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
                 ErrorHandling.printError(ctx, "Variable '" + id + "' it is not a QUESTION!"); 
                 return false;
             }
-
+        }else if(tipo_for.containsKey(id)){
+            if(tipo_for.get(id) != TYPE.QUESTION ){
+                ErrorHandling.printError(ctx, "Variable '" + id + "' it is not a QUESTION!"); 
+                return false;
+            }
+        
 
         }else{
-            ErrorHandling.printError(ctx, "Variable '" + id + "'  Doesn't exist!");     
-            return false;
+                tipo_id.put(id,TYPE.QUESTION);
+                ErrorHandling.printInfo(ctx, "done");
 
         
         }
-        
         
         ErrorHandling.printInfo(ctx, "done");
         return true; 
@@ -184,8 +201,8 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
 	
     @Override public Boolean visitCreateQuestionName(QuizGeneratorParser.CreateQuestionNameContext ctx) {
         String id = ctx.ID().getText();
-        if(tipo_array_id.containsKey(id)){
-            ErrorHandling.printError(ctx, "cant use an array of questions for this"); 
+        if(tipo_array_id.containsKey(id) || tipo_array_for.containsKey(id)){
+            ErrorHandling.printError(ctx, "cant use an array of questions for this");
             return false;
         }
         if(tipo_id.containsKey(id)){
@@ -193,18 +210,22 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
                 ErrorHandling.printError(ctx, "Variable '" + id + "' it is not a QUESTION!"); 
                 return false;
             }
-
+        }else if(tipo_for.containsKey(id)){
+            if(tipo_for.get(id) != TYPE.QUESTION ){
+                ErrorHandling.printError(ctx, "Variable '" + id + "' it is not a QUESTION!"); 
+                return false;
+            }
+        
 
         }else{
-            ErrorHandling.printError(ctx, "Variable '" + id + "'  Doesn't exist!");     
-            return false;
+                tipo_id.put(id,TYPE.QUESTION);
+                ErrorHandling.printInfo(ctx, "done");
 
         
         }
         
-        
         ErrorHandling.printInfo(ctx, "done");
-        return true;  
+        return true; 
     }
     @Override public Boolean visitIfBlock(QuizGeneratorParser.IfBlockContext ctx) { return visitChildren(ctx); }
 
@@ -213,9 +234,9 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
     @Override public Boolean visitAssignInst(QuizGeneratorParser.AssignInstContext ctx) { return visit(ctx.assignment()); }
     
 
-    @Override public Boolean visitCommandInst(QuizGeneratorParser.CommandInstContext ctx) { return visitChildren(ctx); }
+    @Override public Boolean visitCommandInst(QuizGeneratorParser.CommandInstContext ctx) { return visit(ctx.command()); }
     
-    @Override public Boolean visitQuestInst(QuizGeneratorParser.QuestInstContext ctx) { return visitChildren(ctx); }
+    @Override public Boolean visitQuestInst(QuizGeneratorParser.QuestInstContext ctx) { return visit(ctx.createQuestion()); }
     
     
     
@@ -223,12 +244,12 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
     
    @Override public Boolean visitAttribAssign(QuizGeneratorParser.AttribAssignContext ctx) { return visit(ctx.attribution()); }
     
-    @Override public Boolean visitQuestDeclarAssign(QuizGeneratorParser.QuestDeclarAssignContext ctx) { return visitChildren(ctx); }
+    @Override public Boolean visitQuestDeclarAssign(QuizGeneratorParser.QuestDeclarAssignContext ctx) { return visit(ctx.questionDeclaration()); }
     
-    @Override public Boolean visitQuestAttribAssign(QuizGeneratorParser.QuestAttribAssignContext ctx) {return visitChildren(ctx); }
+    @Override public Boolean visitQuestAttribAssign(QuizGeneratorParser.QuestAttribAssignContext ctx) {return visit(ctx.questionAttribution()); }
 
     
-    @Override public Boolean visitBdAttribAssign(QuizGeneratorParser.BdAttribAssignContext ctx) {return visitChildren(ctx);  }
+    @Override public Boolean visitBdAttribAssign(QuizGeneratorParser.BdAttribAssignContext ctx) {return visit(ctx.bdAttribution());  }
     
 
     @Override public Boolean visitDeclarVar(QuizGeneratorParser.DeclarVarContext ctx) {
@@ -523,15 +544,21 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
         
         String id = ctx.ID().getText();
         
-        if(tipo_id.containsKey(id) || tipo_array_id.containsKey(id)){
+        if(tipo_id.containsKey(id) || tipo_array_id.containsKey(id) || tipo_for.containsKey(id) || tipo_array_for.containsKey(id)){
             ErrorHandling.printError(ctx, "Variable '" + id + "' Already exists!");
             return false;
         
         }else{
-
-            tipo_id.put(id, TYPE.QUESTION);
-            ErrorHandling.printInfo("done");
-            return true;
+            if(in_for){
+                tipo_for.put(id, TYPE.QUESTION);
+                ErrorHandling.printInfo("done");
+                return true;
+            }else{
+                tipo_id.put(id, TYPE.QUESTION);
+                ErrorHandling.printInfo("done");
+                return true;  
+            }
+            
         }
 
         //VERIFICAR SE O FICHEIRO EXISTE?
@@ -543,7 +570,7 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
         
         String id = ctx.ID().getText();
         
-        if(tipo_id.containsKey(id) || tipo_array_id.containsKey(id)){
+        if(tipo_id.containsKey(id) || tipo_array_id.containsKey(id) || tipo_for.containsKey(id) || tipo_array_for.containsKey(id)){
             
             ErrorHandling.printError(ctx, "Variable '" + id + "' Already exists!");
             return false;
@@ -552,9 +579,15 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
             
         }else{
         
-            tipo_array_id.put(id, TYPE.QUESTION);
-            ErrorHandling.printInfo("done");
-            return true;
+            if(in_for){
+                tipo_array_for.put(id, TYPE.QUESTION);
+                ErrorHandling.printInfo("done");
+                return true;
+            }else{
+                tipo_array_id.put(id, TYPE.QUESTION);
+                ErrorHandling.printInfo("done");
+                return true;  
+            }
         
         }
         
@@ -567,45 +600,73 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
     @Override public Boolean visitQuestAttribVar(QuizGeneratorParser.QuestAttribVarContext ctx) { 
         String quest_id = ctx.ID(0).getText();
         String bd_id = ctx.ID(1).getText();
+        String id_theme = "";
+        if(ctx.ID(2) != null){
+            id_theme = ctx.ID(2).getText();
+        
+        }
         
         if(ctx.questionType() != null){
 
-            if(tipo_id.containsKey(quest_id) || tipo_array_id.containsKey(quest_id)){
+            if(tipo_id.containsKey(quest_id) || tipo_array_id.containsKey(quest_id) || tipo_for.containsKey(quest_id) || tipo_array_for.containsKey(quest_id)){
                 ErrorHandling.printError(ctx, "Variable '" + quest_id + "' Already exists!");
                 return false;
             
             }else{
-    
-                tipo_id.put(quest_id, TYPE.QUESTION);
-                ErrorHandling.printInfo("done");
+                if(in_for){
+                    tipo_for.put(quest_id, TYPE.QUESTION);
+                    ErrorHandling.printInfo("done"); 
+                }else{
+                    tipo_id.put(quest_id, TYPE.QUESTION);
+                    ErrorHandling.printInfo("done");
+                }
                 
             }
 
         }else{
-            if(!tipo_id.containsKey(quest_id)){
+            if(!tipo_id.containsKey(quest_id) && !tipo_for.containsKey(quest_id))
                 ErrorHandling.printError(ctx, "Variable '" + quest_id + "' doesn't exists!");
                 return false;
             }
-        }
+        
 
         
         
         
-        if(!tipo_id.containsKey(bd_id) ){
+        if(!tipo_id.containsKey(bd_id) && !tipo_for.containsKey(bd_id)){
             ErrorHandling.printError(ctx, "BD '" + bd_id + "' doesnt exist");
             return false;
         }else{
-            if(tipo_id.get(bd_id) != TYPE.BD ){
+            if(tipo_id.get(bd_id) != TYPE.BD && tipo_id.get(bd_id) != null  ){
                 
                 ErrorHandling.printError(ctx, "Variable '" + bd_id + "' is not a BD");
                 return false; 
             }
-
-
-
+            if(tipo_for.get(bd_id) != TYPE.BD && tipo_for.get(bd_id) != null  ){
+                
+                ErrorHandling.printError(ctx, "Variable '" + bd_id + "' is not a BD");
+                return false; 
+            }
         }
         
-
+        
+        if(!id_theme.equals("")){
+            if(!tipo_id.containsKey(id_theme) && !tipo_for.containsKey(id_theme)){
+                ErrorHandling.printError(ctx, "Variable '" + id_theme + "' doesnt exist");
+                return false;
+            }else{
+                if(tipo_id.get(id_theme) != TYPE.STRING && tipo_id.get(id_theme) != null ){
+                    
+                    ErrorHandling.printError(ctx, "Variable '" + id_theme + "' is not a String");
+                    return false; 
+                }
+                if(tipo_for.get(id_theme) != TYPE.STRING && tipo_for.get(id_theme) != null ){
+                    ErrorHandling.printError(ctx, "Variable '" + id_theme + "' is not a String");
+                    return false; 
+                }
+            }
+            
+        }
         
         return true; 
     
@@ -616,22 +677,31 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
     @Override public Boolean visitQuestAttribArray(QuizGeneratorParser.QuestAttribArrayContext ctx) {
         String quest_id = ctx.ID(0).getText();
         String bd_id = ctx.ID(1).getText();
+        String id_theme = "";
+        if(ctx.ID(2) != null){
+            id_theme = ctx.ID(2).getText();
+        
+        }
         
         if(ctx.questionType() != null){
 
-            if(tipo_id.containsKey(quest_id) || tipo_array_id.containsKey(quest_id)){
+            if(tipo_id.containsKey(quest_id) || tipo_array_id.containsKey(quest_id) || tipo_for.containsKey(quest_id) || tipo_array_for.containsKey(quest_id)){
                 ErrorHandling.printError(ctx, "Variable '" + quest_id + "' Already exists!");
                 return false;
             
             }else{
-    
-                tipo_array_id.put(quest_id, TYPE.QUESTION);
-                ErrorHandling.printInfo("done");
+                if(in_for){
+                    tipo_array_for.put(quest_id, TYPE.QUESTION);
+                    ErrorHandling.printInfo("done");
+                }else{
+                    tipo_array_id.put(quest_id, TYPE.QUESTION);
+                    ErrorHandling.printInfo("done");
+                }
                 
             }
 
         }else{
-            if(!tipo_id.containsKey(quest_id)){
+            if(!tipo_id.containsKey(quest_id) && !tipo_for.containsKey(quest_id)){
                 ErrorHandling.printError(ctx, "Variable '" + quest_id + "' doesn't exists!");
                 return false;
             }
@@ -640,36 +710,150 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
         
         
         
-        if(!tipo_id.containsKey(bd_id) ){
-            ErrorHandling.printError(ctx, "BD '" + bd_id + "'  doesnt exist");
+        if(!tipo_id.containsKey(bd_id) && !tipo_for.containsKey(bd_id)){
+            ErrorHandling.printError(ctx, "BD '" + bd_id + "' doesnt exist");
             return false;
         }else{
-            if(tipo_id.get(bd_id) != TYPE.BD ){
+            if(tipo_id.get(bd_id) != TYPE.BD && tipo_id.get(bd_id) != null  ){
                 
                 ErrorHandling.printError(ctx, "Variable '" + bd_id + "' is not a BD");
                 return false; 
             }
-
-
-
+            if(tipo_for.get(bd_id) != TYPE.BD && tipo_for.get(bd_id) != null  ){
+                
+                ErrorHandling.printError(ctx, "Variable '" + bd_id + "' is not a BD");
+                return false; 
+            }
         }
         
-
+        
+        if(!id_theme.equals("")){
+            if(!tipo_id.containsKey(id_theme) && !tipo_for.containsKey(id_theme)){
+                ErrorHandling.printError(ctx, "Variable '" + id_theme + "' doesnt exist");
+                return false;
+            }else{
+                if(tipo_id.get(id_theme) != TYPE.STRING && tipo_id.get(id_theme) != null ){
+                    
+                    ErrorHandling.printError(ctx, "Variable '" + id_theme + "' is not a String");
+                    return false; 
+                }
+                if(tipo_for.get(id_theme) != TYPE.STRING && tipo_for.get(id_theme) != null ){
+                    ErrorHandling.printError(ctx, "Variable '" + id_theme + "' is not a String");
+                    return false; 
+                }
+            }
+            
+        }
         
         return true;
     }
 
-    @Override public Boolean visitAnswerModeCommand(QuizGeneratorParser.AnswerModeCommandContext ctx) { return visitChildren(ctx); }
+    @Override public Boolean visitAnswerModeCommand(QuizGeneratorParser.AnswerModeCommandContext ctx) { return true; }
 
-    @Override public Boolean visitAddCommand(QuizGeneratorParser.AddCommandContext ctx) { return visitChildren(ctx); }
+    @Override public Boolean visitAddCommand(QuizGeneratorParser.AddCommandContext ctx) {
+        String id = ctx.ID(0).getText();
+        String id_quest = ctx.ID(1).getText();
+        
+        if(!tipo_id.containsKey(id_quest) && !tipo_for.containsKey(id_quest) && !tipo_array_id.containsKey(id_quest) && !tipo_array_for.containsKey(id_quest)){
+            ErrorHandling.printError(ctx, "Variable '" + id_quest + "' doesnt exist");    
+            return false;
+        }else{
+            if(tipo_id.get(id_quest) != TYPE.QUESTION && tipo_id.get(id_quest) != null  ){
+                
+                ErrorHandling.printError(ctx, "Variable '" + id_quest + "' is not a Question");
+                return false; 
+            }
+            if(tipo_for.get(id_quest) != TYPE.QUESTION && tipo_for.get(id_quest) != null  ){
+                
+                ErrorHandling.printError(ctx, "Variable '" + id_quest + "' is not a Question");
+                return false; 
+            }
+            if(tipo_array_id.get(id) != TYPE.QUESTION && tipo_array_id.get(id) != null  ){
+                
+                ErrorHandling.printError(ctx, "Variable '" + id + "' is not a Question");
+                return false; 
+            }
+            if(tipo_array_for.get(id) != TYPE.QUESTION && tipo_array_for.get(id) != null  ){
+                
+                ErrorHandling.printError(ctx, "Variable '" + id + "' is not a Question");
+                return false; 
+            }
+        }
+        
+        if(!tipo_array_id.containsKey(id) && !tipo_array_for.containsKey(id) && !tipo_id.containsKey(id) && !tipo_for.containsKey(id)){
+            ErrorHandling.printError(ctx, "Variable '" + id + "' doesnt exist");    
+            return false;
+        }else{
+            if(tipo_id.get(id) != TYPE.BD && tipo_id.get(id) != null  ){
+                
+                ErrorHandling.printError(ctx, "Variable '" + id + "' is not a BD");
+                return false; 
+            }
+            if(tipo_for.get(id) != TYPE.BD && tipo_for.get(id) != null  ){
+                
+                ErrorHandling.printError(ctx, "Variable '" + id + "' is not a BD");
+                return false; 
+            }
+            if(tipo_array_id.get(id) != TYPE.QUESTION && tipo_array_id.get(id) != null  ){
+                
+                ErrorHandling.printError(ctx, "Variable '" + id + "' is not a Question");
+                return false; 
+            }
+            if(tipo_array_for.get(id) != TYPE.QUESTION && tipo_array_for.get(id) != null  ){
+                
+                ErrorHandling.printError(ctx, "Variable '" + id + "' is not a Question");
+                return false; 
+            }
+        }
+
+        return true; }
 
     @Override public Boolean visitRandCommand(QuizGeneratorParser.RandCommandContext ctx) { return visitChildren(ctx); }
 
-    @Override public Boolean visitNumAnswersCommand(QuizGeneratorParser.NumAnswersCommandContext ctx) { return visitChildren(ctx); }
+    @Override public Boolean visitNumAnswersCommand(QuizGeneratorParser.NumAnswersCommandContext ctx) {
+        
+        String id = ctx.ID().getText();
+        
+        if(!tipo_id.containsKey(id) && !tipo_for.containsKey(id)){
+            ErrorHandling.printError(ctx, "Variable '" + id + "' doesnt exist");    
+            return false;
+        }else{
+            if(tipo_id.get(id) != TYPE.QUESTION && tipo_id.get(id) != null  ){
+                
+                ErrorHandling.printError(ctx, "Variable '" + id + "' is not a Question");
+                return false; 
+            }
+            if(tipo_for.get(id) != TYPE.QUESTION && tipo_for.get(id) != null  ){
+                
+                ErrorHandling.printError(ctx, "Variable '" + id + "' is not a Question");
+                return false; 
+            }
+        }
+        
+        
+        
+        
+        return true; 
+    }
 
-    @Override public Boolean visitPrintCommand(QuizGeneratorParser.PrintCommandContext ctx) { return visitChildren(ctx); }
+    @Override public Boolean visitPrintCommand(QuizGeneratorParser.PrintCommandContext ctx) { 
+        String id = "";
 
-    @Override public Boolean visitMathExprCommand(QuizGeneratorParser.MathExprCommandContext ctx) { return visitChildren(ctx); }
+        if(ctx.ID() != null){
+            id = ctx.ID().getText();
+
+        }
+        if(!id.equals("")){
+            if(!tipo_array_id.containsKey(id) && !tipo_array_for.containsKey(id) && !tipo_id.containsKey(id) && !tipo_for.containsKey(id)){
+                ErrorHandling.printError(ctx, "Variable '" + id + "' doesnt exist");    
+                return false;
+            }
+
+        }
+        return true; 
+    }
+
+    @Override public Boolean visitMathExprCommand(QuizGeneratorParser.MathExprCommandContext ctx) { return true; }
 
     @Override public Boolean visitAddSubExpr(QuizGeneratorParser.AddSubExprContext ctx) { return super.visitAddSubExpr(ctx); }
  
@@ -759,23 +943,22 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
 
     @Override public Boolean visitIdRandMethod(QuizGeneratorParser.IdRandMethodContext ctx) {
         String id = ctx.ID().getText();
-        if(tipo_id.containsKey(id)){
-            ErrorHandling.printError(ctx, "Need t be an array of questions"); 
+        if(!tipo_array_id.containsKey(id) && !tipo_array_for.containsKey(id)){
+            ErrorHandling.printError(ctx, "Variable '" + id + "' doesnt exist or its not an array");  
             return false;
         }
-        if(tipo_id.containsKey(id)){
-            if(tipo_array_id.get(id) != TYPE.QUESTION ){
-                ErrorHandling.printError(ctx, "Variable '" + id + "' it is not a QUESTION!"); 
-                return false;
-            }
-
-
-        }else{
-            ErrorHandling.printError(ctx, "Variable '" + id + "'  Doesn't exist!");     
+        
+        if(tipo_array_id.get(id) != TYPE.QUESTION && tipo_array_id.get(id) != null ){
+            ErrorHandling.printError(ctx, "Variable '" + id + "' it's not a Question"); 
             return false;
+        }
+        if(tipo_array_for.get(id) != TYPE.QUESTION && tipo_array_for.get(id) != null ){
+            ErrorHandling.printError(ctx, "Variable '" + id + "' it's not a Question"); 
+            return false;
+        }
+
 
         
-        }
         
         
         ErrorHandling.printInfo(ctx, "done");
@@ -789,37 +972,36 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
         }
 
     @Override public Boolean visitAnswersRandMethod(QuizGeneratorParser.AnswersRandMethodContext ctx) {
-        // String id = ctx.ID().getText();
-        // if(tipo_array_id.containsKey(id)){
-        //     ErrorHandling.printError(ctx, "cant use an array of questions for this"); 
-        //     return false;
-        // }
-        // if(tipo_id.containsKey(id)){
-        //     if(tipo_id.get(id) != TYPE.QUESTION ){
-        //         ErrorHandling.printError(ctx, "Variable '" + id + "' it is not a QUESTION!"); 
-        //         return false;
-        //     }
-
-
-        // }else{
-        //     ErrorHandling.printError(ctx, "Variable '" + id + "'  Doesn't exist!");     
-        //     return false;
-
+        String id = ctx.ID().getText();
+        if(!tipo_id.containsKey(id) && !tipo_for.containsKey(id)){
+            ErrorHandling.printError(ctx, "Variable '" + id + "' doesnt exist or its not an array");  
+            return false;
+        }
         
-        // }
-        
-        
-        // ErrorHandling.printInfo(ctx, "done");
-         return true; 
+        if(tipo_id.get(id) != TYPE.QUESTION && tipo_id.get(id) != null ){
+            ErrorHandling.printError(ctx, "Variable '" + id + "' it's not a Question"); 
+            return false;
+        }
+        if(tipo_for.get(id) != TYPE.QUESTION && tipo_for.get(id) != null ){
+            ErrorHandling.printError(ctx, "Variable '" + id + "' it's not a Question"); 
+            return false;
         }
 
-    @Override public Boolean visitMultipleChoiceType(QuizGeneratorParser.MultipleChoiceTypeContext ctx) { return visitChildren(ctx); }
 
-    @Override public Boolean visitTrueOrFalseType(QuizGeneratorParser.TrueOrFalseTypeContext ctx) { return visitChildren(ctx); }
+        
+        
+        
+        ErrorHandling.printInfo(ctx, "done");
+        return true; 
+        }
 
-    @Override public Boolean visitEasyDifficulty(QuizGeneratorParser.EasyDifficultyContext ctx) { return visitChildren(ctx); }
+    @Override public Boolean visitMultipleChoiceType(QuizGeneratorParser.MultipleChoiceTypeContext ctx) { return true; }
 
-    @Override public Boolean visitMediumDifficulty(QuizGeneratorParser.MediumDifficultyContext ctx) { return visitChildren(ctx); }
+    @Override public Boolean visitTrueOrFalseType(QuizGeneratorParser.TrueOrFalseTypeContext ctx) { return true; }
 
-    @Override public Boolean visitHardDifficulty(QuizGeneratorParser.HardDifficultyContext ctx) { return visitChildren(ctx); }
+    @Override public Boolean visitEasyDifficulty(QuizGeneratorParser.EasyDifficultyContext ctx) { return true; }
+
+    @Override public Boolean visitMediumDifficulty(QuizGeneratorParser.MediumDifficultyContext ctx) { return true; }
+
+    @Override public Boolean visitHardDifficulty(QuizGeneratorParser.HardDifficultyContext ctx) { return true; }
 }

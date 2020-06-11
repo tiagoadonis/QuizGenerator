@@ -1,12 +1,44 @@
-//exemplo de teste semantico
-Begin create quest1
-String[] themes = ["animal","ciancia", "geografia"];
-int x;
-for theme in themes:										
-	
-	String y = theme;								// adiciona as perguntas anteriormente obtidas ao array á lista
+Begin create quest1												// cria o questionário chamado 'quest1'			 
+	Question[] questions;
+	String choice;												
+	int score = 0;
+	String[] themes = ["Animals", "History", "Maths"];
+
+	Question newQuest.text = "Quantas patas tem um gato?";
+	newQuest.theme = "Animals";									// facultativo pode ser null por default
+	newQuest.name = "P7";										// ALTERADO
+	newQuest.difficulty = easy;									// facultativo pode ser null por default
+	newQuest.answer("4 patas", 100);
+	newQuest.answer("2 patas", 0);
+	newQuest.answer("3 patas", 0);
+	newQuest.answer("1 patas", 0);
+
+	questions.add(newQuest);
+
+	answersMode = multipleChoice;								// Define o quiz com respostas de escolha múltipla
+
+	DB data = load("bd1.question");								// carrega base de dados com o ficheiro das perguntas
+	data.add(newQuest);											// ALTERADO
+
+	for theme in themes:										
+		Question[] quest = data.get(3, medium, theme);			// obtém 3 perguntas com dificuldade média sobre o tema 'theme'
+		questions.add(quest);									// adiciona as perguntas anteriormente obtidas ao array á lista
 																// 'questions' inicialmente definida
-endfor	
+	endfor														// acaba o for
 
 
-endcreate
+	Question simpleQuest = data.get(easy, "Languages");			// obtém 1 pergunta com dificuldade fácil sobre o tema 'Languages'	
+	questions.add(simpleQuest);									// adiciona a pergunta anteriormente obtida ás 'questions'
+	rand questions;												// coloca as perguntas de forma aleatória
+
+	for question in questions:
+		question.numAnswers(4);
+		rand question.answers();								// coloca a ordem das respostas de forma aleatória
+		print question;											// faz print da pergunta 'question'
+		choice = userAnswer;									// choice é a resposta do utilizador
+		
+																// se o utilizador acertar na resposta							
+										// acaba o if
+	endfor														// acaba o for
+	print score;												// imprime o score
+endcreate	
