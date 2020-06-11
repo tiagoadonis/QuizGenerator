@@ -7,8 +7,12 @@ typeValue ::= [
 
 module (name, stat) ::= <<
 import java.util.*;
+import java.io.*;
+
 public class <name> {
-	public static void main (String [] args) {
+static Scanner sc = new Scanner(System.in);
+
+	public static void main (String [] args) throws IOException{
 		<stats (stat)>
 	}
 }
@@ -24,8 +28,8 @@ forBlock (elemType, elem, list, stat) ::= <<
 	}
 >>
 
-ifBlock (elem1, elem2, stat, elseStat) ::= <<
-	if (<elem1>.equals(<elem2>.getCorrectLetter())) {
+ifBlock (condition, stat, elseStat) ::= <<
+	if (<condition>) {
 		<stats (stat)>
 	}
 	<if (elseStat)>
@@ -33,6 +37,42 @@ ifBlock (elem1, elem2, stat, elseStat) ::= <<
 		<stats (elseStat)>
 	}
 	<endif>
+>>
+
+condCorrectAnswer(choice, question) ::= <<
+	<choice>.equals(<question>.getCorrectLetter())
+>>
+
+andCond(elem1, elem2) ::= <<
+	<elem1> && <elem2>
+>>
+
+orCond(elem1, elem2) ::= <<
+	<elem1> || <elem2>
+>>
+
+notCond(elem) ::= <<
+	!<elem>
+>>
+
+equalsCond(elem1, elem2) ::= <<
+	<elem1> == <elem2>
+>>
+
+bigEqCond(elem1, elem2) ::= <<
+	<elem1> >= <elem2>
+>>
+
+lowEqCond(elem1, elem2) ::= <<
+	<elem1> \<= <elem2>
+>>
+
+bigCond(elem1, elem2) ::= <<
+	<elem1> > <elem2>
+>>
+
+lowCond(elem1, elem2) ::= <<
+	<elem1> \< <elem2>
 >>
 
 newQuestion(name) ::= <<
@@ -133,4 +173,8 @@ randAnswers(name) ::= <<
 
 atom(value) ::= <<
 	<value>
+>>
+
+userAnswer(id) ::= <<
+	<id> = sc.nextLine();
 >>

@@ -4,7 +4,7 @@
 Begin create quest1												// cria o questionário chamado 'quest1'			 
 	Question[] questions;
 	String choice;												
-	int score = 0;
+	double score = 0;
 	String[] themes = ["animals", "history", "maths"];
 
 	Question newQuest.text = "Quantas patas tem um gato?";

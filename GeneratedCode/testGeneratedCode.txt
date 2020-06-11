@@ -1,8 +1,8 @@
 Begin create testQuest	
-	
+																															
 	Question[] questions;
 	String choice;												
-	int score = 0;
+	double score = 0;
 	String[] themes = ["animals", "history", "maths"];
 
 	Question newQuest.text = "Quantas patas tem um gato?";
@@ -22,7 +22,7 @@ Begin create testQuest
 	data.add(newQuest);											
 
 	for theme in themes:										
-		Question[] quest = data.get(3, medium, theme);			
+		Question[] quest = data.get(2, medium, theme);			
 		questions.add(quest);									
 																
 	endfor														

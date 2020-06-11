@@ -9,6 +9,8 @@ public class Compiler extends QuizGeneratorBaseVisitor<ST> {
 	private HashMap<String, String> varType = new HashMap<>();
 	private String[] types = {"Question", "ArrayList<Question>", "DB"}; 
 	private HashMap<String, HashMap<String, String>> themeName = new HashMap<>();
+	private boolean visit = true;
+	private String type = "";
 	
    @Override public ST visitProgram(QuizGeneratorParser.ProgramContext ctx) {
       ST res = templates.getInstanceOf("module");
@@ -43,6 +45,7 @@ public class Compiler extends QuizGeneratorBaseVisitor<ST> {
       if(type.equals("ArrayList<Question>")){
 		type = "Question";  
 	  }
+	  varType.put(ctx.ID(0).getText(), type);
       ST res = templates.getInstanceOf("forBlock");
       res.add("elemType", type); 
       res.add("elem", ctx.ID(0).getText());
@@ -53,15 +56,14 @@ public class Compiler extends QuizGeneratorBaseVisitor<ST> {
 	  }
       return res;
    }
-
+   
    @Override public ST visitEndf(QuizGeneratorParser.EndfContext ctx) { 
 	  return visitChildren(ctx); 
    }
 
    @Override public ST visitIfBlock(QuizGeneratorParser.IfBlockContext ctx) {
       ST res = templates.getInstanceOf("ifBlock");
-      res.add("elem1", ctx.ID(0).getText());
-      res.add("elem2", ctx.ID(1).getText());
+      res.add("condition", visit(ctx.condition()));
       Iterator<QuizGeneratorParser.StatContext> iter = ctx.stat().iterator();
       while(iter.hasNext()){
 		res.add("stat", visit(iter.next()));
@@ -79,6 +81,68 @@ public class Compiler extends QuizGeneratorBaseVisitor<ST> {
 		res.add("stat", visit(iter.next()));
 	  }
       return res;
+   }
+   
+   @Override public ST visitCondCorrectAnswer(QuizGeneratorParser.CondCorrectAnswerContext ctx) { 
+	  ST res = templates.getInstanceOf("condCorrectAnswer");
+	  res.add("choice", visit(ctx.mathExpr()));
+	  res.add("question", ctx.ID().getText());
+	  return res; 
+   }
+   
+   @Override public ST visitCondAnd(QuizGeneratorParser.CondAndContext ctx) { 
+	  ST res = templates.getInstanceOf("andCond");
+	  res.add("elem1", visit(ctx.mathExpr(0)));
+	  res.add("elem2", visit(ctx.mathExpr(1)));
+	  return res; 
+   }
+   
+   @Override public ST visitCondOr(QuizGeneratorParser.CondOrContext ctx) { 
+	  ST res = templates.getInstanceOf("orCond");
+	  res.add("elem1", visit(ctx.mathExpr(0)));
+	  res.add("elem2", visit(ctx.mathExpr(1)));
+	  return res; 
+   }
+   
+   @Override public ST visitCondNot(QuizGeneratorParser.CondNotContext ctx) { 
+	  ST res = templates.getInstanceOf("notCond");
+	  res.add("elem", visit(ctx.mathExpr()));
+	  return res; 
+   }
+   
+   @Override public ST visitCondEquals(QuizGeneratorParser.CondEqualsContext ctx) { 
+	  ST res = templates.getInstanceOf("equalsCond");
+	  res.add("elem1", visit(ctx.mathExpr(0)));
+	  res.add("elem2", visit(ctx.mathExpr(1)));
+	  return res; 
+   }
+   
+   @Override public ST visitCondBigEq(QuizGeneratorParser.CondBigEqContext ctx) { 
+	  ST res = templates.getInstanceOf("bigEqCond");
+	  res.add("elem1", visit(ctx.mathExpr(0)));
+	  res.add("elem2", visit(ctx.mathExpr(1)));
+	  return res; 
+   }
+   
+   @Override public ST visitCondLowEq(QuizGeneratorParser.CondLowEqContext ctx) { 
+	  ST res = templates.getInstanceOf("lowEqCond");
+	  res.add("elem1", visit(ctx.mathExpr(0)));
+	  res.add("elem2", visit(ctx.mathExpr(1)));
+	  return res; 
+   }
+   
+   @Override public ST visitCondBig(QuizGeneratorParser.CondBigContext ctx) { 
+	  ST res = templates.getInstanceOf("bigCond");
+	  res.add("elem1", visit(ctx.mathExpr(0)));
+	  res.add("elem2", visit(ctx.mathExpr(1)));
+	  return res; 
+   }
+   
+   @Override public ST visitCondLow(QuizGeneratorParser.CondLowContext ctx) { 
+	  ST res = templates.getInstanceOf("lowCond");
+	  res.add("elem1", visit(ctx.mathExpr(0)));
+	  res.add("elem2", visit(ctx.mathExpr(1)));
+	  return res; 
    }
 
    @Override public ST visitAssignInst(QuizGeneratorParser.AssignInstContext ctx) {
@@ -172,46 +236,54 @@ public class Compiler extends QuizGeneratorBaseVisitor<ST> {
    }
 
    @Override public ST visitDeclarVar(QuizGeneratorParser.DeclarVarContext ctx) {
-	  String type = visit(ctx.type()).toString();
+	  this.visit = true;
+	  visit(ctx.type());
+	  String type = this.type;
 	  varType.put(ctx.ID().getText(), type);
-	  //-------------------------------------
       ST res = templates.getInstanceOf("declarVar");
 	  res.add("type", visit(ctx.type()));
 	  res.add("name", ctx.ID().getText());
+	  this.visit = false;
+	  this.type = "";
 	  return res;
    }
 
    @Override public ST visitDeclarArray(QuizGeneratorParser.DeclarArrayContext ctx) {
-      String type = visit(ctx.type()).toString();
+      this.visit = true;
+      visit(ctx.type());
+      String type = this.type;
 	  varType.put(ctx.ID().getText(), type);
-      //---------------------------------------------
       ST res = templates.getInstanceOf("declarArr");
 	  res.add("type", visit(ctx.type()));
 	  res.add("name", ctx.ID().getText());
+	  this.visit = false;
+	  this.type = "";
 	  return res;
    }
 
    @Override public ST visitAttribVar(QuizGeneratorParser.AttribVarContext ctx) {
       ST res = templates.getInstanceOf("attribVar");
       if(ctx.type() != null){
-		//------------------------------------ 
-		String type = visit(ctx.type()).toString();
+		this.visit = true;
+		visit(ctx.type());
+		String type = this.type;
 	    varType.put(ctx.ID().getText(), type);  
-		//------------------------------------  
 		res.add("type", visit(ctx.type()));  
       }
       res.add("name", ctx.ID().getText());
       res.add("value", visit(ctx.expr()));
+      this.visit = false;
+      this.type = "";
       return res;
    }
 
    @Override public ST visitAttribArray(QuizGeneratorParser.AttribArrayContext ctx) {
 	  ST res = templates.getInstanceOf("attribArr");
       if(ctx.type() != null){
-		 //---------------------------------------
-		 String type = visit(ctx.type()).toString();
+		 this.visit = true;
+		 visit(ctx.type());
+		 String type = this.type;
 	     varType.put(ctx.ID().getText(), type); 
-		 //---------------------------------------
 		 res.add("type", visit(ctx.type()));
 	  }
 	  res.add("name", ctx.ID().getText());
@@ -224,6 +296,8 @@ public class Compiler extends QuizGeneratorBaseVisitor<ST> {
 	  else{
 		 res.add("value", visit(ctx.expr(1)));
 	  }
+	  this.visit = false;
+	  this.type = "";
       return res;
    }
 
@@ -242,18 +316,27 @@ public class Compiler extends QuizGeneratorBaseVisitor<ST> {
    @Override public ST visitTypeString(QuizGeneratorParser.TypeStringContext ctx) {
 	  ST res = templates.getInstanceOf("atom");
 	  res.add("value", "String");
+	  if(this.visit == true){
+		this.type = "String";  
+	  }
 	  return res;
    }
 
    @Override public ST visitTypeInt(QuizGeneratorParser.TypeIntContext ctx) {
       ST res = templates.getInstanceOf("atom");
 	  res.add("value", "int");
+	  if(this.visit == true){
+		this.type = "int";
+	  }
 	  return res;
    }
 
    @Override public ST visitTypeDouble(QuizGeneratorParser.TypeDoubleContext ctx) {
       ST res = templates.getInstanceOf("atom");
 	  res.add("value", "double");
+	  if(this.visit == true){
+		this.type = "double";
+	  }
 	  return res;
    }
 
@@ -371,7 +454,7 @@ public class Compiler extends QuizGeneratorBaseVisitor<ST> {
    @Override public ST visitPrintCommand(QuizGeneratorParser.PrintCommandContext ctx) {
       ST res = templates.getInstanceOf("print");
       if(ctx.ID() != null){
-		if(varType.get(ctx.ID().getText()).equals(types[0])){ // ERROR! -> falta fazer forBlock (ADICIONAR AS VARIÁVEIS DO FOR AO MAP)
+		if(varType.get(ctx.ID().getText()).equals(types[0])){ 
 			ST question = templates.getInstanceOf("printQuestion");
 			question.add("question", ctx.ID().getText());
 			return question;
@@ -385,12 +468,11 @@ public class Compiler extends QuizGeneratorBaseVisitor<ST> {
 	  }
       return res;
    }
-
-   @Override public ST visitMathExprCommand(QuizGeneratorParser.MathExprCommandContext ctx) {
-      ST res = templates.getInstanceOf("attribVar");
-      res.add("name", ctx.ID().getText());
-      res.add("value", visit(ctx.mathExpr()));
-      return res;
+	
+   @Override public ST visitUserAnswer(QuizGeneratorParser.UserAnswerContext ctx) { 
+	  ST res = templates.getInstanceOf("userAnswer");
+	  res.add("id", ctx.ID().getText());
+	  return res; 
    }
 
    @Override public ST visitAddSubExpr(QuizGeneratorParser.AddSubExprContext ctx) {
