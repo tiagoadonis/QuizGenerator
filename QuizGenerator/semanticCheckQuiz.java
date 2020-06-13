@@ -458,7 +458,7 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
             
                 
             if(id_atual != TYPE.STRING ){
-                ErrorHandling.printError(ctx, "this is not a String");
+                ErrorHandling.printError(ctx, "Variable is a '" + id_atual +"' not a String");
                 return false;
         
             }else{
@@ -475,7 +475,7 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
 
             if(id_atual != TYPE.STRING ){
             
-                ErrorHandling.printError(ctx, "this is not a String");
+                ErrorHandling.printError(ctx, "Variable is a '" + id_atual +"' not a String");
                 return false;
         
             }else{
@@ -615,10 +615,10 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
             }else{
                 if(in_for){
                     tipo_for.put(quest_id, TYPE.QUESTION);
-                    ErrorHandling.printInfo("done"); 
+                    
                 }else{
                     tipo_id.put(quest_id, TYPE.QUESTION);
-                    ErrorHandling.printInfo("done");
+                    
                 }
                 
             }
@@ -667,7 +667,7 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
             }
             
         }
-        
+        ErrorHandling.printInfo("done");
         return true; 
     
     
@@ -692,10 +692,10 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
             }else{
                 if(in_for){
                     tipo_array_for.put(quest_id, TYPE.QUESTION);
-                    ErrorHandling.printInfo("done");
+                    
                 }else{
                     tipo_array_id.put(quest_id, TYPE.QUESTION);
-                    ErrorHandling.printInfo("done");
+                    
                 }
                 
             }
@@ -710,7 +710,7 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
         
         
         
-        if(!tipo_id.containsKey(bd_id) && !tipo_for.containsKey(bd_id)){
+        if(!tipo_id.containsKey(bd_id) && !tipo_for.containsKey(bd_id)){  //permitir apenas get de bd
             ErrorHandling.printError(ctx, "BD '" + bd_id + "' doesnt exist");
             return false;
         }else{
@@ -728,7 +728,7 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
         
         
         if(!id_theme.equals("")){
-            if(!tipo_id.containsKey(id_theme) && !tipo_for.containsKey(id_theme)){
+            if(!tipo_id.containsKey(id_theme) && !tipo_for.containsKey(id_theme)){//permitir apenas Strings
                 ErrorHandling.printError(ctx, "Variable '" + id_theme + "' doesnt exist");
                 return false;
             }else{
@@ -744,7 +744,7 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
             }
             
         }
-        
+        ErrorHandling.printInfo("done");
         return true;
     }
 
@@ -864,7 +864,7 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
         if(is_Array){
 
             if(id_atual != TYPE.INT && id_atual != TYPE.DOUBLE){
-                ErrorHandling.printError(ctx, "this is not a INT or a DOUBLE");
+                ErrorHandling.printError(ctx, "Variable is a '" + id_atual +"' not a INT or a DOUBLE");
                 return false;
         
             }else{
@@ -877,7 +877,7 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
         }else{
 
             if(id_atual != TYPE.INT && id_atual != TYPE.DOUBLE){
-                ErrorHandling.printError(ctx, "this is not a INT or a DOUBLE");
+                ErrorHandling.printError(ctx, "Variable is a '" + id_atual +"' not a INT or a DOUBLE");
                 return false;
         
             }else{
