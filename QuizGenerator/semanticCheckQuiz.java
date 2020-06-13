@@ -97,7 +97,7 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
 
                  }
             if(ctx.other() != null){
-                check = visit(ctx.other())
+                check = visit(ctx.other());
             }
 
             for(int i = 0; i < ctx.stat().size();i++){
@@ -131,12 +131,12 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
                 ErrorHandling.printError(ctx, "Variable '" + id + "' it is not a QUESTION!"); 
                 return false;
             }
-
+         }
         check = check && visit(ctx.mathExpr());
 
         ErrorHandling.printInfo(ctx, "Condition Correct answeer done");
         return check; 
-    }
+    	}
 
     @Override public Boolean visitCondAnd(QuizGeneratorParser.CondAndContext ctx) { 
         Boolean check = true;
@@ -352,9 +352,6 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
         ErrorHandling.printInfo(ctx, "done");
         return true; 
     }
-    @Override public Boolean visitIfBlock(QuizGeneratorParser.IfBlockContext ctx) { return visitChildren(ctx); }
-
-    @Override public Boolean visitOther(QuizGeneratorParser.OtherContext ctx) { return visitChildren(ctx); }
     
     @Override public Boolean visitAssignInst(QuizGeneratorParser.AssignInstContext ctx) { return visit(ctx.assignment()); }
     
