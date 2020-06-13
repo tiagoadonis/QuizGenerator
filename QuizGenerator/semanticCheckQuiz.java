@@ -82,7 +82,7 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
         
         return true; }
 
-    @Override public T visitIfBlock(QuizGeneratorParser.IfBlockContext ctx) { 
+    @Override public Boolean visitIfBlock(QuizGeneratorParser.IfBlockContext ctx) { 
         Boolean check = true;
         
         if(in_if){
@@ -110,7 +110,7 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
         }
     }
 
-    @Override public T visitOther(QuizGeneratorParser.OtherContext ctx) { 
+    @Override public Boolean visitOther(QuizGeneratorParser.OtherContext ctx) { 
         Boolean check = true;
 
        for(int i = 0; i < ctx.stat().size();i++){
@@ -123,7 +123,7 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
         ErrorHandling.printInfo(ctx, "if done");
         return check; }
 
-    @Override public T visitCondCorrectAnswer(QuizGeneratorParser.CondCorrectAnswerContext ctx) { 
+    @Override public Boolean visitCondCorrectAnswer(QuizGeneratorParser.CondCorrectAnswerContext ctx) { 
         Boolean check = true;
         String id = ctx.ID().getText();
         if(tipo_id.containsKey(id)){
@@ -137,6 +137,73 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
         ErrorHandling.printInfo(ctx, "Condition Correct answeer done");
         return check; 
     }
+
+    @Override public Boolean visitCondAnd(QuizGeneratorParser.CondAndContext ctx) { 
+        Boolean check = true;
+        for(int i = 0; i < ctx.mathExpr().size();i++){
+
+            check = check && visit(ctx.mathExpr(i));
+        }
+        ErrorHandling.printInfo(ctx, "Condition AND done");
+        return check; }
+
+    @Override public Boolean visitCondOr(QuizGeneratorParser.CondOrContext ctx) {
+        Boolean check = true;
+        for(int i = 0; i < ctx.mathExpr().size();i++){
+
+            check = check && visit(ctx.mathExpr(i));
+        }
+        ErrorHandling.printInfo(ctx, "Condition OR done");
+        return check; }
+
+    @Override public Boolean visitCondNot(QuizGeneratorParser.CondNotContext ctx) { 
+        ErrorHandling.printInfo(ctx, "Condition NOT done");
+        return visit(ctx.mathExpr()); }
+
+    @Override public Boolean visitCondEquals(QuizGeneratorParser.CondEqualsContext ctx) { 
+        Boolean check = true;
+        for(int i = 0; i < ctx.mathExpr().size();i++){
+
+            check = check && visit(ctx.mathExpr(i));
+        }
+        ErrorHandling.printInfo(ctx, "Condition == done");
+        return check; }
+    
+    @Override public Boolean visitCondBigEq(QuizGeneratorParser.CondBigEqContext ctx) { 
+    Boolean check = true;
+        for(int i = 0; i < ctx.mathExpr().size();i++){
+
+            check = check && visit(ctx.mathExpr(i));
+        }
+        ErrorHandling.printInfo(ctx, "Condition >= done");
+        return check; }
+
+    @Override public Boolean visitCondLowEq(QuizGeneratorParser.CondLowEqContext ctx) { 
+        Boolean check = true;
+        for(int i = 0; i < ctx.mathExpr().size();i++){
+
+            check = check && visit(ctx.mathExpr(i));
+        }
+        ErrorHandling.printInfo(ctx, "Condition <= done");
+        return check; }
+
+    @Override public Boolean visitCondBig(QuizGeneratorParser.CondBigContext ctx) { 
+        Boolean check = true;
+        for(int i = 0; i < ctx.mathExpr().size();i++){
+
+            check = check && visit(ctx.mathExpr(i));
+        }
+        ErrorHandling.printInfo(ctx, "Condition > done");
+        return check; }
+
+    @Override public Boolean visitCondLow(QuizGeneratorParser.CondLowContext ctx) { 
+        Boolean check = true;
+        for(int i = 0; i < ctx.mathExpr().size();i++){
+
+            check = check && visit(ctx.mathExpr(i));
+        }
+        ErrorHandling.printInfo(ctx, "Condition < done");
+        return check; }
 
 
         @Override public Boolean visitCreateQuestionphrase(QuizGeneratorParser.CreateQuestionphraseContext ctx) {
