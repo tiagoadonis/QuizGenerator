@@ -10,8 +10,6 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
     private HashMap<String,TYPE> tipo_array_id = new HashMap<String,TYPE>();
     private HashMap<String,TYPE> tipo_for= new HashMap<String,TYPE>();
     private HashMap<String,TYPE> tipo_array_for = new HashMap<String,TYPE>();
-    private HashMap<String,TYPE> tipo_if= new HashMap<String,TYPE>();
-    private HashMap<String,TYPE> tipo_array_if = new HashMap<String,TYPE>();
     private enum TYPE{ STRING,INT,QUESTION,DOUBLE,BD}
     private TYPE id_atual;
     private String tipo_atual;
@@ -85,24 +83,61 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
         return true; }
 
     @Override public T visitIfBlock(QuizGeneratorParser.IfBlockContext ctx) { 
-
+        Boolean check = true;
+        
         if(in_if){
-            ErrorHandling.printError(ctx, "you cant use a 'if' inside another 'if'");
+            ErrorHandling.printError(ctx, "you cant use 'if' inside another 'if'");
             return false; 
         }
         else{
         
             if( visit(ctx.condition()) ){
-                tipo_if = new HashMap<String,TYPE>();
-                tipo_array_if = new HashMap<String,TYPE>();
+
                 in_if=true;
 
                  }
-        ErrorHandling.printInfo(ctx, "done");
-        return true; 
+            if(ctx.other() != null){
+                check = visit(ctx.other())
+            }
+
+            for(int i = 0; i < ctx.stat().size();i++){
+
+            check = check && visit(ctx.stat(i));
+        }
+
+        ErrorHandling.printInfo(ctx, "if done");
+        return check; 
         }
     }
-    
+
+    @Override public T visitOther(QuizGeneratorParser.OtherContext ctx) { 
+        Boolean check = true;
+
+       for(int i = 0; i < ctx.stat().size();i++){
+
+            check = check && visit(ctx.stat(i));
+        }
+
+        in_if=false;
+
+        ErrorHandling.printInfo(ctx, "if done");
+        return check; }
+
+    @Override public T visitCondCorrectAnswer(QuizGeneratorParser.CondCorrectAnswerContext ctx) { 
+        Boolean check = true;
+        String id = ctx.ID().getText();
+        if(tipo_id.containsKey(id)){
+            if(tipo_id.get(id) != TYPE.QUESTION ){
+                ErrorHandling.printError(ctx, "Variable '" + id + "' it is not a QUESTION!"); 
+                return false;
+            }
+
+        check = check && visit(ctx.mathExpr());
+
+        ErrorHandling.printInfo(ctx, "Condition Correct answeer done");
+        return check; 
+    }
+
 
         @Override public Boolean visitCreateQuestionphrase(QuizGeneratorParser.CreateQuestionphraseContext ctx) {
         String id = ctx.ID().getText();
