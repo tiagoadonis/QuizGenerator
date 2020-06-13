@@ -10,11 +10,14 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
     private HashMap<String,TYPE> tipo_array_id = new HashMap<String,TYPE>();
     private HashMap<String,TYPE> tipo_for= new HashMap<String,TYPE>();
     private HashMap<String,TYPE> tipo_array_for = new HashMap<String,TYPE>();
+    private HashMap<String,TYPE> tipo_if= new HashMap<String,TYPE>();
+    private HashMap<String,TYPE> tipo_array_if = new HashMap<String,TYPE>();
     private enum TYPE{ STRING,INT,QUESTION,DOUBLE,BD}
     private TYPE id_atual;
     private String tipo_atual;
     private Boolean is_Array;
     private Boolean in_for = false;
+    private Boolean in_if = false;
     
     
     @Override public Boolean visitProgram(QuizGeneratorParser.ProgramContext ctx) {
@@ -80,7 +83,27 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
         tipo_array_for.clear();
         
         return true; }
+
+    @Override public T visitIfBlock(QuizGeneratorParser.IfBlockContext ctx) { 
+
+        if(in_if){
+            ErrorHandling.printError(ctx, "you cant use a 'if' inside another 'if'");
+            return false; 
+        }
+        else{
+        
+            if( visit(ctx.condition()) ){
+                tipo_if = new HashMap<String,TYPE>();
+                tipo_array_if = new HashMap<String,TYPE>();
+                in_if=true;
+
+                 }
+        ErrorHandling.printInfo(ctx, "done");
+        return true; 
+        }
+    }
     
+
         @Override public Boolean visitCreateQuestionphrase(QuizGeneratorParser.CreateQuestionphraseContext ctx) {
         String id = ctx.ID().getText();
         if(tipo_array_id.containsKey(id) || tipo_array_for.containsKey(id)){
