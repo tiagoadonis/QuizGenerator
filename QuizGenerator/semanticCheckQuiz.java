@@ -605,7 +605,7 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
             id_theme = ctx.ID(2).getText();
         
         }
-        
+        System.out.print(tipo_id.get(quest_id));
         if(ctx.questionType() != null){
 
             if(tipo_id.containsKey(quest_id) || tipo_array_id.containsKey(quest_id) || tipo_for.containsKey(quest_id) || tipo_array_for.containsKey(quest_id)){
@@ -624,12 +624,23 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
             }
 
         }else{
-            if(!tipo_id.containsKey(quest_id) && !tipo_for.containsKey(quest_id))
+            
+            if(!tipo_id.containsKey(quest_id) && !tipo_for.containsKey(quest_id)){
+            
                 ErrorHandling.printError(ctx, "Variable '" + quest_id + "' doesn't exists!");
                 return false;
             }
+            if(tipo_id.get(quest_id) != TYPE.QUESTION && tipo_id.get(quest_id) != null){
+                
+                ErrorHandling.printError(ctx, "Variable '" + quest_id + "' is not a Question!");
+                return false;
+            }
+            if(tipo_for.get(quest_id) != TYPE.QUESTION && tipo_id.get(quest_id) != null){
+                ErrorHandling.printError(ctx, "Variable '" + quest_id + "' is not a Question!");
+                return false;
+            }
         
-
+        }
         
         
         
