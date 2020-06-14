@@ -1054,7 +1054,18 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
         if(in_if){
             if(if_count == 0){
                 if_count += 1;
-                if_atual = tipo_for.get(id);
+                
+                if(tipo_id.containsKey(id)){
+                    if_atual = tipo_id.get(id);
+                }else if(tipo_for.containsKey(id)){
+                    if_atual = tipo_for.get(id);
+                }else{
+                    ErrorHandling.printError(ctx, "Variable '" + id + "' doesnt exist or it is an array ");  
+                    return false;
+                }
+                
+               
+                
             
             }else{
                 
