@@ -18,6 +18,7 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
     private Boolean is_Array = false;
     private Boolean in_for = false;
     private Boolean in_if = false;
+    private boolean numeric_required = false;
     
     
     @Override public Boolean visitProgram(QuizGeneratorParser.ProgramContext ctx) {
@@ -144,33 +145,6 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
         return true; 
     	}
 
-    @Override public Boolean visitCondAnd(QuizGeneratorParser.CondAndContext ctx) { 
-        Boolean check = true;
-        for(int i = 0; i < ctx.mathExpr().size();i++){
-
-            check = check && visit(ctx.mathExpr(i));
-        }
-        ErrorHandling.printInfo(ctx, "Condition AND done");
-        return check; }
-
-    
-    
-        @Override public Boolean visitCondOr(QuizGeneratorParser.CondOrContext ctx) {
-        Boolean check = true;
-        for(int i = 0; i < ctx.mathExpr().size();i++){
-
-            check = check && visit(ctx.mathExpr(i));
-        }
-        ErrorHandling.printInfo(ctx, "Condition OR done");
-        return check; }
-
-    @Override public Boolean visitCondNot(QuizGeneratorParser.CondNotContext ctx) { 
-        ErrorHandling.printInfo(ctx, "Condition NOT done");
-        return visit(ctx.mathExpr()); }
-
-    
-    
-    
     
     
         @Override public Boolean visitCondEquals(QuizGeneratorParser.CondEqualsContext ctx) { 
@@ -192,6 +166,8 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
     Boolean check = true;
         for(int i = 0; i < ctx.mathExpr().size();i++){
 
+        	if_count = i;
+        	numeric_required=true;
             check = check && visit(ctx.mathExpr(i));
         }
         ErrorHandling.printInfo(ctx, "Condition >= done");
@@ -200,11 +176,10 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
     @Override public Boolean visitCondLowEq(QuizGeneratorParser.CondLowEqContext ctx) { 
         Boolean check = true;
         
-        
-        
-        
-        
         for(int i = 0; i < ctx.mathExpr().size();i++){
+
+        	if_count = i;
+        	numeric_required=true;
 
             check = check && visit(ctx.mathExpr(i));
         }
@@ -218,7 +193,8 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
     @Override public Boolean visitCondBig(QuizGeneratorParser.CondBigContext ctx) { 
         Boolean check = true;
         for(int i = 0; i < ctx.mathExpr().size();i++){
-
+        	if_count = i;
+        	numeric_required=true;
             check = check && visit(ctx.mathExpr(i));
         }
         ErrorHandling.printInfo(ctx, "Condition > done");
@@ -227,7 +203,8 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
     @Override public Boolean visitCondLow(QuizGeneratorParser.CondLowContext ctx) { 
         Boolean check = true;
         for(int i = 0; i < ctx.mathExpr().size();i++){
-
+        	if_count = i;
+        	numeric_required=true;
             check = check && visit(ctx.mathExpr(i));
         }
         ErrorHandling.printInfo(ctx, "Condition < done");
@@ -1057,9 +1034,20 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
                 
                 if(tipo_id.containsKey(id)){
                     if_atual = tipo_id.get(id);
+                    if(numeric_required){
+                		if(if_atual != TYPE.INT && if_atual !=TYPE.DOUBLE) { 
+                			ErrorHandling.printError(ctx, "Variable '" + id + "' must be INT or DOUBLE ");
+                			return false; }
+                	}	
                 }else if(tipo_for.containsKey(id)){
                     if_atual = tipo_for.get(id);
-                }else{
+                    if(numeric_required){
+                		if(if_atual != TYPE.INT && if_atual !=TYPE.DOUBLE) { 
+                			ErrorHandling.printError(ctx, "Variable '" + id + "' must be INT or DOUBLE ");
+                			return false; }
+                	}	
+                }
+                else{
                     ErrorHandling.printError(ctx, "Variable '" + id + "' doesnt exist or it is an array ");  
                     return false;
                 }
