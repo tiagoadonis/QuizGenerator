@@ -12,8 +12,10 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
     private HashMap<String,TYPE> tipo_array_for = new HashMap<String,TYPE>();
     private enum TYPE{ STRING,INT,QUESTION,DOUBLE,BD}
     private TYPE id_atual;
+    private TYPE if_atual;
+    private int if_count;
     private String tipo_atual;
-    private Boolean is_Array;
+    private Boolean is_Array = false;
     private Boolean in_for = false;
     private Boolean in_if = false;
     
@@ -81,7 +83,12 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
         tipo_array_for.clear();
         
         return true; }
-
+    
+    @Override public Boolean visitEndif(QuizGeneratorParser.EndifContext ctx){
+        in_if=false;
+        
+        return true;}
+    
     @Override public Boolean visitIfBlock(QuizGeneratorParser.IfBlockContext ctx) { 
         Boolean check = true;
         
@@ -90,14 +97,12 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
             return false; 
         }
         else{
-        
-            if( visit(ctx.condition()) ){
-
-                in_if=true;
-
-                 }
+            in_if=true;
+            check = visit(ctx.condition());
+          
+            
             if(ctx.other() != null){
-                check = visit(ctx.other());
+                check =  check && visit(ctx.other());
             }
 
             for(int i = 0; i < ctx.stat().size();i++){
@@ -124,7 +129,7 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
         return check; }
 
     @Override public Boolean visitCondCorrectAnswer(QuizGeneratorParser.CondCorrectAnswerContext ctx) { 
-        Boolean check = true;
+       
         String id = ctx.ID().getText();
         if(tipo_id.containsKey(id)){
             if(tipo_id.get(id) != TYPE.QUESTION ){
@@ -132,10 +137,11 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
                 return false;
             }
          }
-        check = check && visit(ctx.mathExpr());
+        
+         
 
         ErrorHandling.printInfo(ctx, "Condition Correct answeer done");
-        return check; 
+        return true; 
     	}
 
     @Override public Boolean visitCondAnd(QuizGeneratorParser.CondAndContext ctx) { 
@@ -147,7 +153,9 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
         ErrorHandling.printInfo(ctx, "Condition AND done");
         return check; }
 
-    @Override public Boolean visitCondOr(QuizGeneratorParser.CondOrContext ctx) {
+    
+    
+        @Override public Boolean visitCondOr(QuizGeneratorParser.CondOrContext ctx) {
         Boolean check = true;
         for(int i = 0; i < ctx.mathExpr().size();i++){
 
@@ -160,16 +168,27 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
         ErrorHandling.printInfo(ctx, "Condition NOT done");
         return visit(ctx.mathExpr()); }
 
-    @Override public Boolean visitCondEquals(QuizGeneratorParser.CondEqualsContext ctx) { 
+    
+    
+    
+    
+    
+        @Override public Boolean visitCondEquals(QuizGeneratorParser.CondEqualsContext ctx) { 
         Boolean check = true;
+        
         for(int i = 0; i < ctx.mathExpr().size();i++){
 
+            if_count = i;
             check = check && visit(ctx.mathExpr(i));
+            
         }
         ErrorHandling.printInfo(ctx, "Condition == done");
         return check; }
     
-    @Override public Boolean visitCondBigEq(QuizGeneratorParser.CondBigEqContext ctx) { 
+   
+   
+   
+        @Override public Boolean visitCondBigEq(QuizGeneratorParser.CondBigEqContext ctx) { 
     Boolean check = true;
         for(int i = 0; i < ctx.mathExpr().size();i++){
 
@@ -180,12 +199,21 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
 
     @Override public Boolean visitCondLowEq(QuizGeneratorParser.CondLowEqContext ctx) { 
         Boolean check = true;
+        
+        
+        
+        
+        
         for(int i = 0; i < ctx.mathExpr().size();i++){
 
             check = check && visit(ctx.mathExpr(i));
         }
         ErrorHandling.printInfo(ctx, "Condition <= done");
-        return check; }
+        return check; 
+    
+    
+    
+    }
 
     @Override public Boolean visitCondBig(QuizGeneratorParser.CondBigContext ctx) { 
         Boolean check = true;
@@ -432,13 +460,6 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
         }
 
         
-        
-            
-        
-        
-        
-        
-        
         return true;
 
     }
@@ -589,10 +610,6 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
 
             }
 
-           
-            
-            
-
         }else{
 
             if(id_atual != TYPE.STRING ){
@@ -656,11 +673,8 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
     }
     @Override public Boolean visitQuestionType(QuizGeneratorParser.QuestionTypeContext ctx) {
         
-        
-        
         return true; 
-    
-    
+
     }
     @Override public Boolean visitQuestDeclarVar(QuizGeneratorParser.QuestDeclarVarContext ctx) {
         
@@ -986,7 +1000,15 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
         return true; 
     }
 
-    @Override public Boolean visitMathExprCommand(QuizGeneratorParser.MathExprCommandContext ctx) { return true; }
+    @Override public Boolean visitUserAnswer(QuizGeneratorParser.UserAnswerContext ctx) { 
+    
+    
+    
+    
+    
+        return true; 
+    
+    }
 
     @Override public Boolean visitAddSubExpr(QuizGeneratorParser.AddSubExprContext ctx) { return super.visitAddSubExpr(ctx); }
  
@@ -1028,7 +1050,36 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
 
     @Override public Boolean visitIdExpr(QuizGeneratorParser.IdExprContext ctx) {
         String id = ctx.ID().getText();
+        
+        if(in_if){
+            if(if_count == 0){
+                if_count += 1;
+                if_atual = tipo_for.get(id);
+            
+            }else{
+                
+                if(tipo_for.containsKey(id)){
 
+                    if(if_atual != tipo_for.get(id)) {
+                
+                        ErrorHandling.printError(ctx, "Variables are from different types");
+                        return false;
+                    }
+    
+                }
+                if(tipo_id.containsKey(id)){
+                    if(if_atual != tipo_id.get(id)) {
+                    
+                        ErrorHandling.printError(ctx, "Variables are from different types");
+                        return false;
+                    }
+                }
+
+            }
+
+  
+        }
+        
         if(is_Array){
             
             if(tipo_array_for.containsKey(id)){
@@ -1050,7 +1101,10 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
             }
         }else{
 
+            
             if(tipo_for.containsKey(id)){
+                
+                
                 if(id_atual != tipo_for.get(id)) {
             
                     ErrorHandling.printError(ctx, "Variables are from different types");

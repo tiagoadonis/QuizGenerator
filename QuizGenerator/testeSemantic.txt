@@ -1,17 +1,13 @@
 Begin create quest1												// cria o questionário chamado 'quest1'			 
-	Question[] questions;
-	String choice;												
-	int score = 0;
+	String x;
+	int y;
+	int w;
+
+
+if(y == w):
+	double zed;
+endif
 	
-	String str= "animal";
 
-	
 
-								// Define o quiz com respostas de escolha múltipla
-
-	DB data = load("bd1.question");								// carrega base de dados com o ficheiro das perguntas
-												// ALTERADO
-	str = str.get(easy,score);
-														// acaba o for
-													// imprime o score
 endcreate	

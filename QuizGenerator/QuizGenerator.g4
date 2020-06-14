@@ -9,12 +9,27 @@ stat: instructions ';'					#instStat
 
 forBlock: 'for' ID 'in' ID ':' stat+ endf
 		;
-endf: 'endfor';
-ifBlock: 'if' '(' ID '==' ID'.correctAnswer()' ')' ':' stat+ other? 'endif' 		//abre brevemente 
+
+endf: 'endfor'
+    ;
+
+ifBlock: 'if' '(' condition ')' ':' stat+ other? endif		
 	   ; 
 
+endif: 'endif' ;
 other: 'else' ':' stat+
 	 ;
+
+condition: mathExpr '==' ID '.correctAnswer()'		#condCorrectAnswer
+		 | mathExpr 'and' mathExpr 					#condAnd
+		 | mathExpr 'or' mathExpr 					#condOr
+		 | 'not' mathExpr 							#condNot
+		 | mathExpr '==' mathExpr  					#condEquals
+		 | mathExpr '>=' mathExpr  					#condBigEq
+		 | mathExpr '<=' mathExpr  					#condLowEq
+		 | mathExpr '>' mathExpr  					#condBig
+		 | mathExpr '<' mathExpr  					#condLow
+		 ;
 
 instructions: assignment				#assignInst
 			| command					#commandInst
@@ -71,7 +86,7 @@ command: 'answersMode' '=' testType 			#answerModeCommand
 	   | 'rand' randMethod						#randCommand
 	   | ID '.numAnswers' '(' NUM ')'			#numAnswersCommand
 	   | 'print' (ID | WORD) 					#printCommand
-	   | ID '=' mathExpr						#mathExprCommand
+	   | ID '=' 'userAnswer'					#userAnswer
 	   ;
 
 mathExpr: mathExpr op=('*' | '/') mathExpr		#multDivExpr
