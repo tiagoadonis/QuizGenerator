@@ -19,7 +19,8 @@ ifBlock: 'if' '(' condition ')' ':' stat+ other? endif
 other: 'else' ':' stat+
 	 ;
 
-endif: 'endif' ;
+endif: 'endif' 
+	 ;
 
 condition: mathExpr '==' ID '.correctAnswer()'		#condCorrectAnswer
 		 | mathExpr '==' mathExpr  					#condEquals
