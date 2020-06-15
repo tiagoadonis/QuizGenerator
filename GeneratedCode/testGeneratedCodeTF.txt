@@ -1,4 +1,4 @@
-Begin create testQuest	
+Begin create testQuestTF	
 																															
 	Question[] questions;
 	String choice;												
@@ -16,7 +16,7 @@ Begin create testQuest
 
 	questions.add(newQuest);
 
-	answersMode = multipleChoice;								
+	answersMode = trueOrFalse;								
 
 	DB data = load("bd1.question");								
 	data.add(newQuest);											
@@ -27,17 +27,13 @@ Begin create testQuest
 																
 	endfor														
 
-
 	Question simpleQuest = data.get(easy, "languages");				
 	questions.add(simpleQuest);									
 	rand questions;												
 
-	for question in questions:
-		question.numAnswers(4);
-		rand question.answers();								
+	for question in questions:						
 		print question;											
 		choice = userAnswer;									
-		
 																							
 		if (choice == question.correctAnswer()):				
 			score = score + 100;								

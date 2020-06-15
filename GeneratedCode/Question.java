@@ -8,7 +8,9 @@ public class Question {
 	private ArrayList<Answer> wrongAnswers = new ArrayList<>();
 	private static String[] letters = {"a","b","c","d","e","f","g","h"};
 	private String correctLetter;
-	
+	//---------------------------
+	private Answer answerTF;
+	//----------------------------
 	public Question(String title, String difficulty, ArrayList<Answer> answers){
 		this.title = title;
 		this.difficulty = difficulty;
@@ -51,12 +53,10 @@ public class Question {
 		Collections.shuffle(this.answers);
 	}
 	
-	// To test Visitor only
 	public String getTitle(){
 		return this.title;
 	}
 	
-	// To test Visitor only
 	public String getDifficulty(){
 		return this.difficulty;
 	}
@@ -96,13 +96,28 @@ public class Question {
 		return wrongOnes;
 	}
 	
-	// To test Visitor only
 	public ArrayList<Answer> getAnswers(){
 		return this.answers;	
 	}
 	
 	public String getCorrectLetter(){
 		return this.correctLetter;
+	}
+	
+	public void loadTrueOrFalse(){
+		int index = (int) (Math.random() * this.answers.size());
+		this.answerTF = this.answers.get(index);
+	}
+	
+	public String trueOrFalse(){
+		if(this.answerTF.getPoints() == 100){
+			return "V";
+		}
+		return "F";
+	}
+	
+	public Answer getAnswerTF(){
+		return this.answerTF;
 	}
 	
 	@Override
@@ -118,4 +133,3 @@ public class Question {
 		return title + "\n" +answers;
 	}
 }
-

@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class testQuest {
+public class testQuestTF {
 static Scanner sc = new Scanner(System.in);
 
 	public static void main (String [] args) throws IOException{
@@ -23,7 +23,7 @@ static Scanner sc = new Scanner(System.in);
 		  Answer ans4 = new Answer("1 patas", 0);
 			newQuest.addAnswer(ans4);  
 		  questions.add(newQuest);  
-		  String answerMode = "multipleChoice";  
+		  String answerMode = "trueOrFalse";  
 		   DB data = new DB("bd1.question");   
 		  data.add("animals", "P13", newQuest);  
 		 for (String theme : themes) {
@@ -36,13 +36,14 @@ static Scanner sc = new Scanner(System.in);
 		  questions.add(simpleQuest);  
 		   Collections.shuffle(questions);   
 		 for (Question question : questions) {
-				   question.numAnswers(4);  
-				   question.shuffleAnswers();   
-				  System.out.println(question.toString());  
+				   question.loadTrueOrFalse();
+						String str1 = question.getTitle().replaceAll("[\".]", "");
+						String str2 = question.getAnswerTF().getText().replaceAll("\"", "");
+						System.out.println("\""+str1+" "+str2+"\"");  
 				  System.out.print("A: ");
 					choice = sc.nextLine();
 					System.out.println("----------------------------------------------------------");  
-				 if (choice.equalsIgnoreCase(question.getCorrectLetter())) {
+				 if (choice.equalsIgnoreCase(question.trueOrFalse())) {
 						     score =  score + 100 ;    
 					}
 					else{

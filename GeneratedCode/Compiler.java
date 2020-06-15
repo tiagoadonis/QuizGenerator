@@ -11,6 +11,7 @@ public class Compiler extends QuizGeneratorBaseVisitor<ST> {
 	private HashMap<String, HashMap<String, String>> themeName = new HashMap<>();
 	private boolean visit = true;
 	private String type = "";
+	private String quizType = "";
 	
    @Override public ST visitProgram(QuizGeneratorParser.ProgramContext ctx) {
       ST res = templates.getInstanceOf("module");
@@ -83,30 +84,20 @@ public class Compiler extends QuizGeneratorBaseVisitor<ST> {
       return res;
    }
    
+   @Override public ST visitEndif(QuizGeneratorParser.EndifContext ctx) { 
+	  return visitChildren(ctx); 
+   }
+   
    @Override public ST visitCondCorrectAnswer(QuizGeneratorParser.CondCorrectAnswerContext ctx) { 
+	  if(this.quizType.equals("trueOrFalse")){
+		ST resTF = templates.getInstanceOf("correctAnswerTF");
+		resTF.add("choice", visit(ctx.mathExpr()));
+		resTF.add("question", ctx.ID().getText());
+		return resTF;
+	  }
 	  ST res = templates.getInstanceOf("condCorrectAnswer");
 	  res.add("choice", visit(ctx.mathExpr()));
 	  res.add("question", ctx.ID().getText());
-	  return res; 
-   }
-   
-   @Override public ST visitCondAnd(QuizGeneratorParser.CondAndContext ctx) { 
-	  ST res = templates.getInstanceOf("andCond");
-	  res.add("elem1", visit(ctx.mathExpr(0)));
-	  res.add("elem2", visit(ctx.mathExpr(1)));
-	  return res; 
-   }
-   
-   @Override public ST visitCondOr(QuizGeneratorParser.CondOrContext ctx) { 
-	  ST res = templates.getInstanceOf("orCond");
-	  res.add("elem1", visit(ctx.mathExpr(0)));
-	  res.add("elem2", visit(ctx.mathExpr(1)));
-	  return res; 
-   }
-   
-   @Override public ST visitCondNot(QuizGeneratorParser.CondNotContext ctx) { 
-	  ST res = templates.getInstanceOf("notCond");
-	  res.add("elem", visit(ctx.mathExpr()));
 	  return res; 
    }
    
@@ -445,6 +436,11 @@ public class Compiler extends QuizGeneratorBaseVisitor<ST> {
    }
 
    @Override public ST visitNumAnswersCommand(QuizGeneratorParser.NumAnswersCommandContext ctx) {
+      if(this.quizType.equals("trueOrFalse")){
+		  System.err.println("ERROR! \""+ctx.ID().getText()+".numAnswers("+ctx.NUM().getText()+")\" command can't "+ 
+																		   "be proccesed in a true or false quiz!");
+		  System.exit(1);
+	  }
       ST res = templates.getInstanceOf("numAnswers");
       res.add("question", ctx.ID().getText());
       res.add("num", ctx.NUM().getText());
@@ -455,6 +451,11 @@ public class Compiler extends QuizGeneratorBaseVisitor<ST> {
       ST res = templates.getInstanceOf("print");
       if(ctx.ID() != null){
 		if(varType.get(ctx.ID().getText()).equals(types[0])){ 
+			if(this.quizType.equals("trueOrFalse")){
+				ST resTF = templates.getInstanceOf("trueOrFalse");
+				resTF.add("question", ctx.ID().getText());
+				return resTF;
+			}
 			ST question = templates.getInstanceOf("printQuestion");
 			question.add("question", ctx.ID().getText());
 			return question;
@@ -521,6 +522,10 @@ public class Compiler extends QuizGeneratorBaseVisitor<ST> {
    }
 
    @Override public ST visitAnswersRandMethod(QuizGeneratorParser.AnswersRandMethodContext ctx) {
+      if(this.quizType.equals("trueOrFalse")){
+		  System.err.println("ERROR! \"rand "+ctx.ID().getText()+".answers()\" command can't be processed in a true or false quiz!");
+		  System.exit(1);
+	  }
       ST res = templates.getInstanceOf("randAnswers");
       res.add("name", ctx.ID().getText());
       return res;
@@ -529,12 +534,14 @@ public class Compiler extends QuizGeneratorBaseVisitor<ST> {
    @Override public ST visitMultipleChoiceType(QuizGeneratorParser.MultipleChoiceTypeContext ctx) {
       ST res = templates.getInstanceOf("atom");
       res.add("value", "\"multipleChoice\"");
+      this.quizType = "multipleChoice";
       return res;
    }
 
    @Override public ST visitTrueOrFalseType(QuizGeneratorParser.TrueOrFalseTypeContext ctx) {
       ST res = templates.getInstanceOf("atom");
       res.add("value", "\"trueOrFalse\"");
+      this.quizType = "trueOrFalse";
       return res;
    }
 

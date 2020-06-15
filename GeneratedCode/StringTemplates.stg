@@ -40,19 +40,7 @@ ifBlock (condition, stat, elseStat) ::= <<
 >>
 
 condCorrectAnswer(choice, question) ::= <<
-	<choice>.equals(<question>.getCorrectLetter())
->>
-
-andCond(elem1, elem2) ::= <<
-	<elem1> && <elem2>
->>
-
-orCond(elem1, elem2) ::= <<
-	<elem1> || <elem2>
->>
-
-notCond(elem) ::= <<
-	!<elem>
+	<choice>.equalsIgnoreCase(<question>.getCorrectLetter())
 >>
 
 equalsCond(elem1, elem2) ::= <<
@@ -183,4 +171,19 @@ userAnswer(id) ::= <<
 	System.out.print("A: ");
 	<id> = sc.nextLine();
 	System.out.println("----------------------------------------------------------");
+>>
+
+trueOrFalse(question) ::= <<
+	<question>.loadTrueOrFalse();
+	<printQuestTF (question)>
+>>
+
+printQuestTF(question) ::= <<
+	String str1 = <question>.getTitle().replaceAll("[\".]", "");
+	String str2 = <question>.getAnswerTF().getText().replaceAll("\"", "");
+	System.out.println("\""+str1+" "+str2+"\"");
+>>
+
+correctAnswerTF(choice, question) ::= <<
+	<choice>.equalsIgnoreCase(<question>.trueOrFalse())
 >>

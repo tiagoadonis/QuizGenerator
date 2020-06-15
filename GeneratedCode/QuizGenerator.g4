@@ -13,16 +13,16 @@ forBlock: 'for' ID 'in' ID ':' stat+ endf
 endf: 'endfor'
     ;
 
-ifBlock: 'if' '(' condition ')' ':' stat+ other? 'endif' 		
+ifBlock: 'if' '(' condition ')' ':' stat+ other? endif		
 	   ; 
 
 other: 'else' ':' stat+
 	 ;
 
+endif: 'endif' 
+	 ;
+
 condition: mathExpr '==' ID '.correctAnswer()'		#condCorrectAnswer
-		 | mathExpr 'and' mathExpr 					#condAnd
-		 | mathExpr 'or' mathExpr 					#condOr
-		 | 'not' mathExpr 							#condNot
 		 | mathExpr '==' mathExpr  					#condEquals
 		 | mathExpr '>=' mathExpr  					#condBigEq
 		 | mathExpr '<=' mathExpr  					#condLowEq

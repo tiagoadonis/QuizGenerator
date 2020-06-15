@@ -14,7 +14,7 @@ static Scanner sc = new Scanner(System.in);
 		
 		//Question newQuest.text = "Quantas patas tem um gato?";
 		Question newQuest = new Question();
-		newQuest.setTitle("Quantas patas tem um gato?");
+		newQuest.setTitle("O número de patas que um gato possui é...");
 		
 		//newQuest.difficulty = easy; -> facultativo pode ser null por default
 		newQuest.setDifficulty("easy");
@@ -45,7 +45,7 @@ static Scanner sc = new Scanner(System.in);
 		DB data = new DB("bd1.question");
 		
 		//data.add(newQuest);
-		data.add("animals", "P7", newQuest);
+		data.add("animals", "P13", newQuest);
 		
 		ArrayList<Question> quest = new ArrayList<>();
 		
@@ -72,25 +72,45 @@ static Scanner sc = new Scanner(System.in);
 		//rand questions;
 		Collections.shuffle(questions);
 		
-		//for question in questions:
-		for(Question question : questions){
-			//question.numAnswers(4);
-			question.numAnswers(4);
-			//rand question.answers();
-			question.shuffleAnswers();
-			// print question;
-			System.out.print(""+question.toString());
-			//choice = userAnswer;
-			System.out.print("A: ");
-			choice = sc.nextLine();
-			//if (choice == question.correctAnswer()):
-			if(choice.equals(question.getCorrectLetter())){
-				score = score + 100;
+		if(answersMode.equals("multipleChoice")){
+			//for question in questions:
+			for(Question question : questions){
+				//question.numAnswers(4);
+				question.numAnswers(4);
+				//rand question.answers();
+				question.shuffleAnswers();
+				// print question;
+				System.out.print(""+question.toString());
+				//choice = userAnswer;
+				System.out.print("A: ");
+				choice = sc.nextLine();
+				//if (choice == question.correctAnswer()):
+				if(choice.equalsIgnoreCase(question.getCorrectLetter())){
+					score = score + 100;
+				}
+				else{
+					score = score - (score * 0.1);
+				}
+				System.out.println("");
 			}
-			else{
-				score = score - (score * 0.1);
+		}
+		//true or false
+		else if(answersMode.equals("trueOrFalse")){
+			for(Question question : questions){
+				question.loadTrueOrFalse();
+				String str1 = question.getTitle().replaceAll("[\".]", "");
+				String str2 = question.getAnswerTF().getText().replaceAll("\"", "");
+				System.out.println("\""+str1+" "+str2+"\"");
+				System.out.print("A: ");
+				choice = sc.nextLine();
+				if(choice.equalsIgnoreCase(question.trueOrFalse())){
+					score = score + 100;
+				}
+				else{
+					score = score - (score * 0.1);
+				}
+				System.out.println("");
 			}
-			System.out.println("");
 		}
 		//print score;
 		System.out.println("Score: "+score);

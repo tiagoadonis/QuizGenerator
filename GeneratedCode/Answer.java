@@ -21,4 +21,3 @@ public class Answer {
 		return this.points;
 	}
 }
-
