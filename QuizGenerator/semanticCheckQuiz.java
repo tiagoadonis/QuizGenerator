@@ -1096,7 +1096,7 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
   
         }
         
-        else if(is_Array){
+        if(is_Array){
             
             if(tipo_array_for.containsKey(id)){
                 if(id_atual != tipo_array_for.get(id)) {
