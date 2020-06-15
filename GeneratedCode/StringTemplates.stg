@@ -176,5 +176,7 @@ atom(value) ::= <<
 >>
 
 userAnswer(id) ::= <<
+	System.out.print("A: ");
 	<id> = sc.nextLine();
+	System.out.println("----------------------------------------------------------");
 >>

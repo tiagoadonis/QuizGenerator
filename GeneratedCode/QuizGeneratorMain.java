@@ -22,9 +22,9 @@ public class QuizGeneratorMain {
          if (parser.getNumberOfSyntaxErrors() == 0) {
             // print LISP-style tree:
             // System.out.println(tree.toStringTree(parser));
-            Compiler visitor0 = new Compiler();
-            ST result = visitor0.visit(tree);
-            result.add("name", visitor0.getQuizName());
+            Compiler compiler = new Compiler();
+            ST result = compiler.visit(tree);
+            result.add("name", compiler.getQuizName());
             System.out.println(result.render());
          }
       }

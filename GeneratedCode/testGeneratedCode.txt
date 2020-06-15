@@ -7,7 +7,7 @@ Begin create testQuest
 
 	Question newQuest.text = "Quantas patas tem um gato?";
 	newQuest.theme = "animals";									
-	newQuest.name = "P7";										
+	newQuest.name = "P13";										
 	newQuest.difficulty = easy;									
 	newQuest.answer("4 patas", 100);
 	newQuest.answer("2 patas", 0);
