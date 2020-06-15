@@ -155,6 +155,10 @@ printQuestion(question) ::= <<
 	System.out.println(<question>.toString());
 >>
 
+printScore(score) ::= <<
+	System.out.println("Score: "+<score>);	
+>>
+
 operation(elem1, op, elem2) ::= <<
 	<elem1> <op> <elem2>
 >>

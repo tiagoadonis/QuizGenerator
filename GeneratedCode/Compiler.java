@@ -459,6 +459,11 @@ public class Compiler extends QuizGeneratorBaseVisitor<ST> {
 			question.add("question", ctx.ID().getText());
 			return question;
 		}
+		else if(ctx.ID().getText().equals("score")){
+			ST score = templates.getInstanceOf("printScore");
+			score.add("score", ctx.ID().getText());
+			return score;
+		}
 		else{
 			res.add("var", ctx.ID().getText()); 
 		}

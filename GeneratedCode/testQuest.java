@@ -50,6 +50,6 @@ static Scanner sc = new Scanner(System.in);
 					}
 				  
 			} 
-		  System.out.println(score);   
+		  System.out.println("Score: "+score);	   
 	}
 }
