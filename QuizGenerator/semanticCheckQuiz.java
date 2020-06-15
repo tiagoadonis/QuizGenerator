@@ -87,7 +87,7 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
     
     @Override public Boolean visitEndif(QuizGeneratorParser.EndifContext ctx){
         in_if=false;
-        
+        if_atual=null;
         return true;}
     
     @Override public Boolean visitIfBlock(QuizGeneratorParser.IfBlockContext ctx) { 
@@ -124,7 +124,7 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
             check = check && visit(ctx.stat(i));
         }
 
-        in_if=false;
+        //in_if=false;
 
         ErrorHandling.printInfo(ctx, "if done");
         return check; }
@@ -163,7 +163,7 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
    
    
         @Override public Boolean visitCondBigEq(QuizGeneratorParser.CondBigEqContext ctx) { 
-    Boolean check = true;
+    	Boolean check = true;
         for(int i = 0; i < ctx.mathExpr().size();i++){
 
         	if_count = i;
@@ -993,7 +993,23 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
 
     @Override public Boolean visitNumMathExpr(QuizGeneratorParser.NumMathExprContext ctx) {
        
-        if(is_Array){
+        if(in_if){
+        	if(if_atual == null) { 
+        		if(ctx.NUM().getText().contains(".")) { 
+        		if_atual = TYPE.DOUBLE; }
+        		else { if_atual = TYPE.INT; }
+        	}
+        	if(if_atual != TYPE.INT && if_atual != TYPE.DOUBLE){
+                ErrorHandling.printError(ctx, "Variable is a '" + if_atual +"' not a INT or a DOUBLE");
+                return false;
+        
+            }else{
+                ErrorHandling.printInfo("done");
+                return true;
+
+            }
+        }
+        else if(is_Array){
 
             if(id_atual != TYPE.INT && id_atual != TYPE.DOUBLE){
                 ErrorHandling.printError(ctx, "Variable is a '" + id_atual +"' not a INT or a DOUBLE");
@@ -1030,8 +1046,7 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
         
         if(in_if){
             if(if_count == 0){
-                if_count += 1;
-                
+                //if_count += 1;
                 if(tipo_id.containsKey(id)){
                     if_atual = tipo_id.get(id);
                     if(numeric_required){
@@ -1056,35 +1071,37 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
                 
             
             }else{
+            	if(tipo_id.containsKey(id)){
+            		if( if_atual==TYPE.STRING && tipo_id.get(id)!=TYPE.STRING){
+            			ErrorHandling.printError(ctx, "Variable '"+id+"' is not STRING ");
+            		}
+                    else if( (if_atual==TYPE.DOUBLE || if_atual==TYPE.INT) && tipo_id.get(id) == TYPE.STRING ){
+						ErrorHandling.printError(ctx, " Variable '" + id + "' must be INT or DOUBLE");
+                        return false;
+                    }
+                }
                 
                 if(tipo_for.containsKey(id)){
 
                     if(if_atual != tipo_for.get(id)) {
-                
-                        ErrorHandling.printError(ctx, "Variables are from different types");
+                        ErrorHandling.printError(ctx, " Variables are from different types");
                         return false;
                     }
     
                 }
-                if(tipo_id.containsKey(id)){
-                    if(if_atual != tipo_id.get(id)) {
-                    
-                        ErrorHandling.printError(ctx, "Variables are from different types");
-                        return false;
-                    }
-                }
+
 
             }
 
   
         }
         
-        if(is_Array){
+        else if(is_Array){
             
             if(tipo_array_for.containsKey(id)){
                 if(id_atual != tipo_array_for.get(id)) {
             
-                    ErrorHandling.printError(ctx, "Variables are from different types");
+                    ErrorHandling.printError(ctx, " Variables are from different types");
                     
                     return false;
                 }
@@ -1093,7 +1110,7 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
             if(tipo_array_id.containsKey(id)){
                 if(id_atual != tipo_array_id.get(id)) {
                 
-                    ErrorHandling.printError(ctx, "Variables are from different types");
+                    ErrorHandling.printError(ctx, " Variables are from different types");
                     
                     return false;
                 }
@@ -1106,7 +1123,7 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
                 
                 if(id_atual != tipo_for.get(id)) {
             
-                    ErrorHandling.printError(ctx, "Variables are from different types");
+                    ErrorHandling.printError(ctx, " Variables are from different types");
                     
                     return false;
                 }
@@ -1115,7 +1132,7 @@ public class semanticCheckQuiz extends QuizGeneratorBaseVisitor<Boolean>  {
             if(tipo_id.containsKey(id)){
                 if(id_atual != tipo_id.get(id)) {
                 
-                    ErrorHandling.printError(ctx, "Variables are from different types");
+                    ErrorHandling.printError(ctx, " Variables are from different types");
                     
                     return false;
                 }
