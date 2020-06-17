@@ -1,7 +1,9 @@
+// Código java gerado pela execução do ficheiro de teste "testGeneratedCode.QG"
+
 import java.util.*;
 import java.io.*;
 
-public class testQuestTF {
+public class testQuest {
 static Scanner sc = new Scanner(System.in);
 
 	public static void main (String [] args) throws IOException{
@@ -23,7 +25,7 @@ static Scanner sc = new Scanner(System.in);
 		  Answer ans4 = new Answer("1 patas", 0);
 			newQuest.addAnswer(ans4);  
 		  questions.add(newQuest);  
-		  String answerMode = "trueOrFalse";  
+		  String answerMode = "multipleChoice";  
 		   DB data = new DB("bd1.question");   
 		  data.add("animals", "P13", newQuest);  
 		 for (String theme : themes) {
@@ -36,14 +38,13 @@ static Scanner sc = new Scanner(System.in);
 		  questions.add(simpleQuest);  
 		   Collections.shuffle(questions);   
 		 for (Question question : questions) {
-				   question.loadTrueOrFalse();
-						String str1 = question.getTitle().replaceAll("[\".]", "");
-						String str2 = question.getAnswerTF().getText().replaceAll("\"", "");
-						System.out.println("\""+str1+" "+str2+"\"");  
+				   question.numAnswers(4);  
+				   question.shuffleAnswers();   
+				  System.out.println(question.toString());  
 				  System.out.print("A: ");
 					choice = sc.nextLine();
 					System.out.println("----------------------------------------------------------");  
-				 if (choice.equalsIgnoreCase(question.trueOrFalse())) {
+				 if (choice.equalsIgnoreCase(question.getCorrectLetter())) {
 						     score =  score + 100 ;    
 					}
 					else{

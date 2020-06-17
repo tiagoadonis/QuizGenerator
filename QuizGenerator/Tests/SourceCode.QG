@@ -1,5 +1,5 @@
-// Cria um teste com 3 perguntas do tema animais, 3 perguntas de história, 3 perguntas de matemática e 1 sobre línguas
-// O teste é do tipo escolha múltipla e tem 4 opções de resposta
+// Cria um teste com 3 perguntas do tema animais, 3 perguntas de história, 3 perguntas de matemática e 1 sobre línguas.
+// O teste é do tipo escolha múltipla e tem 4 opções de resposta.
 
 Begin create quest1												// cria o questionário chamado 'quest1'			 
 	Question[] questions;

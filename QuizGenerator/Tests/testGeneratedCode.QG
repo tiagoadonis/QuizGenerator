@@ -1,4 +1,9 @@
-Begin create testQuestTF	
+// Ficheiro de teste que cria um quiz com 2 perguntas do tema animais, 2 perguntas de história, 2 perguntas de matemática e 1 sobre línguas. 
+// Todas estas perguntas são obtidas através de um 'get' de uma base de dados.
+// Existe ainda uma pergunta suplementar inserida pelo próprio programador.  
+// O teste é do tipo escolha múltipla e tem 4 opções de resposta.
+
+Begin create testQuest	
 																															
 	Question[] questions;
 	String choice;												
@@ -16,7 +21,7 @@ Begin create testQuestTF
 
 	questions.add(newQuest);
 
-	answersMode = trueOrFalse;								
+	answersMode = multipleChoice;								
 
 	DB data = load("bd1.question");								
 	data.add(newQuest);											
@@ -31,9 +36,12 @@ Begin create testQuestTF
 	questions.add(simpleQuest);									
 	rand questions;												
 
-	for question in questions:						
+	for question in questions:
+		question.numAnswers(4);
+		rand question.answers();								
 		print question;											
 		choice = userAnswer;									
+		
 																							
 		if (choice == question.correctAnswer()):				
 			score = score + 100;								
