@@ -1,0 +1,18 @@
+//ficheiro com demonstração de erros na análise semantica
+
+//ex 2: for numa variável nao iterável
+Begin create quest1			 
+	int y;
+	int []w;
+	String s;
+	double a;
+
+for y in a :		//a é um inteiro, logo não é iterável
+
+		int q;
+
+endfor
+	
+endcreate
+
+

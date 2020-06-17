@@ -24,7 +24,7 @@ public class QuizGeneratorMain {
             // System.out.println(tree.toStringTree(parser));
             semanticCheckQuiz semCheck = new semanticCheckQuiz();
 			semCheck.visit(tree); 
-            if (parser.getNumberOfSyntaxErrors() == 0) {
+            if (parser.getNumberOfSyntaxErrors() == 0 && semCheck.semantic_checked) {
 				Compiler compiler = new Compiler();
 				ST result = compiler.visit(tree);
 				result.add("name", compiler.getQuizName());
