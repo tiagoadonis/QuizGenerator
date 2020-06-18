@@ -1,5 +1,3 @@
-#Quiz Generator
-
 A nossa linguagem contém duas gramáticas. 
 A gramática principal chama-se *"QuizGenerator.g4"* que tem como principal função gerar o questionário que foi programado.
 A gramática secundária tem como nome *"ReadQuestions.g4"*, e o seu principal objetivo é ler de uma base de dados, *"bd1.question"*, as perguntas e respostas que se encontram disponíveis para colocar nos questionários.
