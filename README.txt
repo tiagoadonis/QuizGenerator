@@ -15,7 +15,9 @@ Flags suportadas:
 
 Para poder realizar o questionário anteriormente criado é só compilar e correr o ficheiro java com o código gerado exportado.
 
+
 Exemplos de comandos:
+
 - ./buid.sh
 - java QuizGeneratorMain < Test/testGeneratedCode.QG
 - java QuizGeneratorMain -f < Test/testGeneratedCode.QG
