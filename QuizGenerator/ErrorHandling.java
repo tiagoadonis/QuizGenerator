@@ -268,22 +268,33 @@ public class ErrorHandling
 
    protected static void printMessage(String text, int type)
    {
-      logFile.printf("[%s%s%s] %s\n", prefixFormat[type-1], prefixMsg[type-1], RESET, text);
-      logFile.flush();
+	   if(type != notPrinting){
+		logFile.printf("[%s%s%s] %s\n", prefixFormat[type-1], prefixMsg[type-1], RESET, text);
+		logFile.flush();
+	   }
    }
 
    protected static void printMessage(int line, String text, int type)
    {
-      logFile.printf("[%s%s%s at line %d] %s\n", prefixFormat[type-1], prefixMsg[type-1], RESET, line, text);
-      logFile.flush();
+      if(type != notPrinting){
+		logFile.printf("[%s%s%s at line %d] %s\n", prefixFormat[type-1], prefixMsg[type-1], RESET, line, text);
+		logFile.flush();
+	  }
    }
    protected static void printMessage(ParserRuleContext ctx, String text, int type)
    {
-      printMessage(ctx.getStart().getLine(), text, type);
+	  if(type != notPrinting){
+		printMessage(ctx.getStart().getLine(), text, type);
+	  }
+   }
+
+   public void setNotPrintingNum(int n){
+	  this.notPrinting = n;
    }
 
    protected static PrintStream logFile = out; // default
    protected static int errorCount = 0;
    protected static int warningCount = 0;
+   private static int notPrinting;
 }
 
