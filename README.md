@@ -28,4 +28,4 @@ Para poder realizar o questionário anteriormente criado é só compilar e corre
 - *javac testQuest.java*
 - *java testQuest*
 
-![QuizGenerator_Example.gif](QuizGenerator\Resources\QuizGenerator_Example.gif)
+<img src="QuizGenerator\Resources\QuizGenerator_Example.gif" width="766" heigth="258">
