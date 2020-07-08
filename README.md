@@ -29,3 +29,4 @@ Para poder realizar o questionário anteriormente criado é só compilar e corre
 - *java testQuest*
 
 <img src="QuizGenerator\Resources\QuizGenerator_Example.gif" width="766" heigth="258">
+![example](https://i.imgur.com/a/TwHu2jj)
