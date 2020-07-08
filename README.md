@@ -27,3 +27,5 @@ Para poder realizar o questionário anteriormente criado é só compilar e corre
 - *java QuizGeneratorMain -f -s < Test/testGeneratedCode.QG*
 - *javac testQuest.java*
 - *java testQuest*
+
+![](QuizGenerator\Resources\QuizGenerator_Example.gif)
